@@ -31,6 +31,10 @@
   --vermillion-soft: rgba(200, 75, 49, 0.12);
   --gold: #b8860b;
   --gold-soft: rgba(184, 134, 11, 0.1);
+  --blue: #4682b4;
+  --blue-soft: rgba(70, 130, 180, 0.12);
+  --copper: #B87333;
+  --copper-soft: rgba(184, 115, 51, 0.12);
   --pos-blue: rgba(70, 130, 180, 0.15);
   --pos-blue-text: #4682b4;
   --shadow-sm: 0 1px 3px rgba(44, 36, 22, 0.08);
@@ -186,15 +190,15 @@ nav.tabs {
 }
 
 .cat-bubble {
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 0.5rem;
   border: none;
-  border-radius: 20px;
+  border-radius: 12px;
   background: var(--accent-soft);
   color: var(--accent);
   font-family: 'Noto Sans TC', sans-serif;
   font-size: 0.88rem;
   cursor: pointer;
-  transition: opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
   font-weight: 500;
   flex: 1 1 calc(50% - 0.5rem);
   text-align: center;
@@ -202,8 +206,8 @@ nav.tabs {
 }
 
 .cat-bubble.unselected {
-  opacity: 0.4;
-  background: transparent;
+  background: rgba(45, 106, 79, 0.07);
+  color: rgba(45, 106, 79, 0.4);
 }
 
 .cat-bubble:active {
@@ -211,16 +215,22 @@ nav.tabs {
 }
 
 .cat-bubble.cat-favorites {
-  flex: 1 1 100%;
-  font-size: 1rem;
-  padding: 0.65rem 1rem;
+  flex: 1 1 calc(50% - 0.5rem);
   color: var(--gold);
   background: var(--gold-soft);
 }
 .cat-bubble.cat-favorites.unselected {
-  opacity: 0.4;
-  background: transparent;
-  color: var(--gold);
+  background: rgba(184, 134, 11, 0.07);
+  color: rgba(184, 134, 11, 0.4);
+}
+
+.cat-bubble.cat-custom:not(.unselected) {
+  background: var(--vermillion-soft);
+  color: var(--vermillion);
+}
+.cat-bubble.cat-custom.unselected {
+  background: rgba(200, 75, 49, 0.07);
+  color: rgba(200, 75, 49, 0.4);
 }
 
 /* View toggle */
@@ -393,6 +403,18 @@ nav.tabs {
   background: var(--gold-soft);
   color: var(--gold);
 }
+.pill.depth.basic {
+  background: var(--jade-soft);
+  color: var(--jade);
+}
+.pill.depth.intermediate {
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+.pill.depth.rich {
+  background: var(--vermillion-soft);
+  color: var(--vermillion);
+}
 
 .pill.category {
   background: var(--accent-soft);
@@ -534,7 +556,7 @@ nav.tabs {
 
 .compact-row {
   display: grid;
-  grid-template-columns: 1.5rem auto minmax(0, 1.5fr) minmax(0, 1.5fr) auto;
+  grid-template-columns: 1.5rem 4.5rem 5.5rem 1fr auto;
   align-items: baseline;
   gap: 0.5rem;
   padding: 11px 14px;
@@ -567,7 +589,11 @@ nav.tabs {
   font-size: 0.68rem;
   color: var(--ink-light);
   line-height: 1.3;
-  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .cr-depth {
   font-size: .5rem;
@@ -602,7 +628,7 @@ nav.tabs {
   border-radius: var(--radius);
   padding: 2rem;
   box-shadow: var(--shadow-md);
-  max-width: 340px;
+  max-width: 420px;
   width: 100%;
 }
 
@@ -651,35 +677,75 @@ nav.tabs {
 }
 
 .setup-cat-bubble {
-  padding: 0.6rem 1.2rem;
+  flex: 1 1 calc(33.33% - 0.35rem);
+  padding: 0.55rem 0.5rem;
   border: none;
-  border-radius: 24px;
+  border-radius: 12px;
   background: var(--accent-soft);
   color: var(--accent);
   font-family: 'Noto Sans TC', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: opacity 0.2s ease, background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
   font-weight: 500;
+  text-align: center;
+  min-width: 0;
 }
+
+/* Unselected: light pastel fill — still clearly a button */
+.setup-cat-bubble.unselected {
+  background: rgba(70, 130, 180, 0.06);
+  color: rgba(70, 130, 180, 0.4);
+}
+
+/* Selected: full accent fill */
+.setup-cat-bubble:not(.unselected) {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* Favorites star — uses gold instead of accent */
 .setup-cat-bubble.cat-favorites {
   color: var(--gold);
   background: var(--gold-soft);
+  font-size: 1.2rem;
 }
 .setup-cat-bubble.cat-favorites.unselected {
-  opacity: 0.4;
-  background: transparent;
-  color: var(--gold);
+  background: rgba(184, 134, 11, 0.06);
+  color: rgba(184, 134, 11, 0.4);
 }
 
-.setup-cat-bubble.unselected {
-  opacity: 0.4;
-  background: transparent;
-  border-color: var(--accent);
+/* Custom — uses vermillion (fire/forge color) */
+.setup-cat-bubble.cat-custom:not(.unselected) {
+  background: var(--vermillion-soft);
+  color: var(--vermillion);
+}
+.setup-cat-bubble.cat-custom.unselected {
+  background: rgba(200, 75, 49, 0.06);
+  color: rgba(200, 75, 49, 0.4);
 }
 
 .setup-cat-bubble:active {
   transform: scale(0.95);
+}
+
+.drill-cat-toggle-btn {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--sand-border);
+  border-radius: 20px;
+  background: var(--rice-dark);
+  color: var(--ink-light);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.drill-cat-toggle-btn:hover {
+  background: var(--sand);
+  border-color: var(--ink-ghost);
 }
 
 .count-stepper {
@@ -727,8 +793,8 @@ nav.tabs {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 20px;
-  background: var(--vermillion-soft);
-  color: var(--vermillion);
+  background: var(--blue-soft);
+  color: var(--blue);
   font-family: 'Noto Sans TC', sans-serif;
   font-size: 1.2rem;
   cursor: pointer;
@@ -737,7 +803,7 @@ nav.tabs {
 }
 
 .all-btn.active {
-  background: var(--vermillion);
+  background: var(--blue);
   color: white;
 }
 
@@ -755,17 +821,18 @@ nav.tabs {
   width: 100%;
   max-width: 220px;
   margin: 0 auto;
-  border: 2px solid var(--accent);
+  border: 2px solid var(--ink-ghost);
   border-radius: var(--radius-sm);
   overflow: hidden;
 }
 
-.mode-seg-btn {
+/* 中→英 button (char mode) = vermillion */
+.mode-seg-btn[data-mode="char"] {
   flex: 1;
   padding: 0.7rem 0.5rem;
   border: none;
   background: transparent;
-  color: var(--accent);
+  color: var(--vermillion);
   font-family: 'Noto Sans TC', sans-serif;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -775,8 +842,31 @@ nav.tabs {
   justify-content: center;
   gap: 0.25rem;
 }
-.mode-seg-btn + .mode-seg-btn {
-  border-left: 2px solid var(--accent);
+.mode-seg-btn[data-mode="char"].active {
+  background: var(--vermillion);
+  color: white;
+}
+
+/* 英→中 button (meaning mode) = blue */
+.mode-seg-btn[data-mode="meaning"] {
+  flex: 1;
+  padding: 0.7rem 0.5rem;
+  border: none;
+  border-left: 2px solid var(--ink-ghost);
+  background: transparent;
+  color: var(--blue);
+  font-family: 'Noto Sans TC', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+.mode-seg-btn[data-mode="meaning"].active {
+  background: var(--blue);
+  color: white;
 }
 
 .mode-seg-btn .mode-char-big {
@@ -788,11 +878,6 @@ nav.tabs {
 .mode-seg-btn .mode-arrow {
   font-size: 0.9rem;
   opacity: 0.6;
-}
-
-.mode-seg-btn.active {
-  background: var(--accent);
-  color: white;
 }
 
 .mode-seg-btn:active {
@@ -1228,46 +1313,1196 @@ nav.tabs {
 
 .complete-restart:hover { opacity: 0.7; transform: scale(1.05); }
 
-/* ========== CONNECT TAB ========== */
-#connect-content {
+/* ========== STAGE TAB (Sentence Generator) ========== */
+#stage-content {
   flex: 1;
+  padding: 1rem 1.5rem 2rem;
+}
+
+.stage-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stage-header {
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.stage-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 0.25rem;
+}
+
+.stage-subtitle {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+/* --- Vocab Picker --- */
+.stage-section {
+  margin-bottom: 0.25rem;
+}
+
+.stage-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-light);
+  margin-bottom: 0.4rem;
+  display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 3rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  gap: 0.4rem;
+}
+
+.stage-label .label-zh {
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.vocab-picker {
+  position: relative;
+}
+
+.vocab-picker-trigger {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--sand-border);
+  border-radius: var(--radius-sm);
+  background: var(--rice-light);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-color 0.2s ease;
+}
+
+.vocab-picker-trigger:hover {
+  border-color: var(--accent);
+}
+
+.vocab-picker-trigger .picker-count {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  min-width: 1.5rem;
   text-align: center;
 }
 
-.connect-placeholder {
-  max-width: 300px;
+/* --- Vocab Modal (Centered Floating) --- */
+.vocab-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 36, 22, 0.45);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
 
-.connect-icon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+.vocab-modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.connect-title {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 1.3rem;
-  font-weight: 900;
-  margin-bottom: 0.5rem;
+.vocab-modal-card {
+  width: 100%;
+  max-width: 440px;
+  max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
+  background: var(--rice);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(44, 36, 22, 0.18), 0 0 0 1px rgba(44, 36, 22, 0.06);
+  transform: scale(0.96) translateY(8px);
+  transition: transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.25s ease;
+  opacity: 0;
 }
 
-.connect-subtitle {
-  font-family: 'Noto Sans TC', sans-serif;
-  font-size: 0.9rem;
-  color: var(--ink-light);
-  margin-bottom: 1.5rem;
+.vocab-modal-backdrop.open .vocab-modal-card {
+  transform: scale(1) translateY(0);
+  opacity: 1;
 }
 
-.connect-diagram {
+/* Header */
+.vocab-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem 0.6rem;
+  flex-shrink: 0;
+}
+
+.vocab-modal-title {
   font-family: 'Noto Serif TC', serif;
   font-size: 1rem;
+  font-weight: 700;
   color: var(--ink);
-  line-height: 2;
-  letter-spacing: 0.5px;
+}
+
+.vocab-modal-close {
+  background: none;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--ink-ghost);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.vocab-modal-close:hover {
+  background: var(--sand);
+  color: var(--ink);
+}
+
+/* Search */
+.vocab-picker-search {
+  padding: 0 1.25rem 0.5rem;
+  flex-shrink: 0;
+}
+
+.vocab-picker-search input {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--sand-border);
+  border-radius: 8px;
+  background: var(--rice-light);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: var(--ink);
+}
+
+.vocab-picker-search input::placeholder {
+  color: var(--ink-ghost);
+}
+
+.vocab-picker-search input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Category pills row (multi-select) */
+.vocab-cat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  padding: 0 1.25rem 0.5rem;
+  flex-shrink: 0;
+}
+
+.vocab-cat-pill {
+  padding: 0.28rem 0.6rem;
+  border-radius: 14px;
+  border: 1px solid var(--sand-border);
+  background: transparent;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 0.7rem;
+  color: var(--ink-ghost);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.vocab-cat-pill:hover {
+  border-color: var(--ink-whisper);
+  color: var(--ink-faint);
+}
+
+.vocab-cat-pill.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* 4-part control bar */
+.vocab-control-bar {
+  display: flex;
+  border-top: 1px solid var(--sand-border);
+  border-bottom: 1px solid var(--sand-border);
+  flex-shrink: 0;
+}
+
+.vocab-control-btn {
+  flex: 1;
+  padding: 0.5rem 0;
+  border: none;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--ink-faint);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.vocab-control-btn:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.vocab-control-btn:active {
+  background: var(--accent-soft);
+}
+
+/* Subtle dividers between control buttons */
+.vocab-control-btn + .vocab-control-btn::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background: var(--sand-border);
+}
+
+/* --- Vocab List with fixed columns --- */
+.vocab-picker-list {
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
+}
+
+.vocab-picker-item {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.vocab-picker-item:hover {
+  background: var(--accent-soft);
+}
+
+.vocab-picker-item:active {
+  background: var(--accent-soft);
+}
+
+.vocab-picker-item input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+.vocab-picker-item .vp-char {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  width: 30%;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, black 75%, transparent 100%);
+  mask-image: linear-gradient(to right, black 75%, transparent 100%);
+}
+
+.vocab-picker-item .vp-pinyin {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  width: 30%;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, black 75%, transparent 100%);
+  mask-image: linear-gradient(to right, black 75%, transparent 100%);
+}
+
+.vocab-picker-item .vp-en {
+  font-size: 0.75rem;
+  color: var(--ink-ghost);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+  mask-image: linear-gradient(to right, black 80%, transparent 100%);
+}
+
+/* Usage count badge (subtle) */
+.vp-usage {
+  font-size: 0.62rem;
+  color: var(--ink-whisper);
+  flex-shrink: 0;
+  margin-left: 0.25rem;
+  min-width: 1.2rem;
+  text-align: right;
+}
+
+/* --- Control Rows --- */
+.stage-controls-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.stage-controls-row .stage-section {
+  flex: 1;
+}
+
+.stage-select {
+  width: 100%;
+  padding: 0.55rem 0.6rem;
+  border: 1px solid var(--sand-border);
+  border-radius: var(--radius-sm);
+  background: var(--rice-light);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: var(--ink);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%238a7e6c' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  padding-right: 1.5rem;
+}
+
+.stage-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.stage-text-input {
+  width: 100%;
+  padding: 0.55rem 0.6rem;
+  border: 1px solid var(--sand-border);
+  border-radius: var(--radius-sm);
+  background: var(--rice-light);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: var(--ink);
+}
+
+.stage-text-input::placeholder {
+  color: var(--ink-ghost);
+}
+
+.stage-text-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* --- Segmented Control --- */
+.seg-control {
+  display: flex;
+  border: 1px solid var(--sand-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.seg-control button {
+  flex: 1;
+  padding: 0.5rem 0.4rem;
+  border: none;
+  border-right: 1px solid var(--sand-border);
+  background: var(--rice-light);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.seg-control button:last-child {
+  border-right: none;
+}
+
+.seg-control button:hover {
+  background: var(--sand-light);
+  color: var(--ink-light);
+}
+
+.seg-control button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.seg-hint {
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+  color: var(--ink-ghost);
+  font-style: italic;
+  line-height: 1.3;
+}
+
+/* --- Spicy Button --- */
+.spicy-btn {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  border: 2px solid var(--sand-border);
+  background: var(--rice-light);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.spicy-btn:hover {
+  border-color: #d44;
+  transform: scale(1.08);
+}
+
+.spicy-btn.active {
+  border-color: #d44;
+  background: rgba(221, 68, 68, 0.1);
+  box-shadow: 0 0 12px rgba(221, 68, 68, 0.25);
+}
+
+.spicy-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  color: var(--ink-ghost);
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+.spicy-toggle.active .spicy-label {
+  color: #d44;
+}
+
+/* --- Spicy Password Modal --- */
+.spicy-pw-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.spicy-pw-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.spicy-pw-card {
+  background: #0a0a0f;
+  border-radius: 16px;
+  padding: 1.8rem 1.5rem 1.5rem;
+  width: 300px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.5), 0 0 80px rgba(100,140,200,0.08);
+  text-align: center;
+  border: 1px solid rgba(140,160,200,0.15);
+}
+
+.moria-gate-wrap {
+  margin: 0 auto 0.8rem;
+  width: 180px;
+  height: 200px;
+}
+
+.moria-gate-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+.spicy-pw-card h3 {
+  margin: 0 0 0.3rem;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.05rem;
+  color: rgba(180,200,230,0.9);
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+.moria-subtitle {
+  margin: 0 0 1rem;
+  font-size: 0.72rem;
+  color: rgba(140,160,200,0.4);
+  font-style: italic;
+}
+
+.spicy-pw-input {
+  width: 100%;
+  padding: 0.55rem 0.6rem;
+  border: 1px solid rgba(140,160,200,0.2);
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.04);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(180,200,230,0.9);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.spicy-pw-input::placeholder {
+  color: rgba(140,160,200,0.3);
+}
+
+.spicy-pw-input:focus {
+  outline: none;
+  border-color: rgba(140,180,230,0.5);
+  box-shadow: 0 0 12px rgba(100,150,220,0.15);
+}
+
+.spicy-pw-input.error {
+  border-color: rgba(200,100,100,0.6);
+  animation: spicyShake 0.35s ease;
+}
+
+@keyframes spicyShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.spicy-pw-btns {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.spicy-pw-btns button {
+  flex: 1;
+  padding: 0.45rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: 1px solid rgba(140,160,200,0.15);
+  background: rgba(255,255,255,0.03);
+  color: rgba(140,160,200,0.5);
+  transition: all 0.15s ease;
+}
+
+.spicy-pw-btns button:hover {
+  border-color: rgba(140,160,200,0.3);
+  color: rgba(180,200,230,0.7);
+}
+
+.spicy-pw-btns button.confirm {
+  border-color: rgba(140,180,230,0.3);
+  color: rgba(140,180,230,0.7);
+}
+
+.spicy-pw-btns button.confirm:hover {
+  background: rgba(140,180,230,0.15);
+  border-color: rgba(140,180,230,0.5);
+  color: rgba(200,220,240,0.9);
+}
+
+/* --- Compact Controls Row --- */
+.stage-compact-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.spicy-toggle, .group-toggle, .apikey-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.group-btn, .apikey-btn {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  border: 2px solid var(--sand-border);
+  background: var(--rice-light);
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.group-btn:hover {
+  border-color: var(--accent);
+  transform: scale(1.08);
+}
+
+.group-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 12px rgba(139,34,82,0.2);
+}
+
+.group-label, .apikey-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  color: var(--ink-ghost);
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+.group-toggle.active .group-label {
+  color: var(--accent);
+}
+
+.apikey-btn:hover {
+  border-color: var(--gold);
+  transform: scale(1.08);
+}
+
+.apikey-btn.active {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+}
+
+/* --- Character Roster --- */
+.roster-manage-btn {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  width: 1.4rem;
+  height: 1.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  line-height: 1;
+  padding: 0;
+}
+
+.roster-manage-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.character-roster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.roster-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--sand-border);
+  border-radius: 20px;
+  background: var(--rice-light);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 0.78rem;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.roster-chip.selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.roster-chip:hover {
+  border-color: var(--accent);
+}
+
+.roster-chip-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  color: var(--ink-ghost);
+}
+
+/* --- Character Creator Modal --- */
+.char-creator-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 36, 22, 0.45);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.char-creator-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.char-creator-card {
+  background: var(--rice);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--sand-border);
+}
+
+.char-creator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem 0.5rem;
+  border-bottom: 1px solid var(--sand-border);
+}
+
+.char-creator-title {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.char-creator-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--ink-faint);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.char-creator-body {
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.char-field label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-light);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.char-field-hint {
+  font-weight: 400;
+  color: var(--ink-ghost);
+  font-size: 0.7rem;
+}
+
+.char-field input, .char-field select, .char-field textarea {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--sand-border);
+  border-radius: var(--radius-sm);
+  background: var(--rice-light);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: var(--ink);
+  box-sizing: border-box;
+}
+
+.char-field input:focus, .char-field select:focus, .char-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.char-field textarea {
+  resize: vertical;
+  font-family: 'Inter', sans-serif;
+}
+
+.char-creator-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+}
+
+.char-save-btn, .char-enrich-btn {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.char-save-btn {
+  border: 1px solid var(--sand-border);
+  background: var(--rice-light);
+  color: var(--ink-light);
+}
+
+.char-save-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.char-enrich-btn {
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.char-enrich-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.char-enrich-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.char-enrich-status {
+  padding: 0 1.2rem 0.4rem;
+  font-size: 0.72rem;
+  color: var(--ink-ghost);
+  font-style: italic;
+}
+
+.char-saved-list {
+  padding: 0 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.char-saved-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--sand-border);
+  border-radius: var(--radius-sm);
+  background: var(--rice-light);
+}
+
+.char-saved-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.char-saved-name {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.char-saved-role {
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+}
+
+.char-saved-enriched {
+  font-size: 0.62rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.char-saved-actions {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.char-saved-actions button {
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0.15rem;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+.char-saved-actions button:hover {
+  opacity: 1;
+}
+
+/* --- Dialogue Character Count Badge --- */
+.dialogue-char-count {
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.6rem;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: center;
+}
+
+.char-count-breakdown {
+  font-weight: 400;
+  font-size: 0.68rem;
+  color: var(--ink-faint);
+}
+
+/* --- Generate Button --- */
+.stage-generate-btn {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 0.25rem;
+}
+
+.stage-generate-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.stage-generate-btn:active {
+  transform: scale(0.98);
+}
+
+.stage-generate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- API Key Row (reuses Forge styling mostly) --- */
+.stage-api-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.stage-api-label {
+  font-size: 0.72rem;
+  color: var(--ink-ghost);
+  white-space: nowrap;
+}
+
+.stage-api-input {
+  flex: 1;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--sand-border);
+  border-radius: 6px;
+  background: var(--rice-light);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: var(--ink);
+}
+
+.stage-api-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* --- Status Messages --- */
+.stage-status {
+  font-size: 0.82rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  display: none;
+}
+
+.stage-status.loading {
+  display: block;
+  background: var(--blue-soft);
+  color: var(--blue);
+  animation: pulse-bg 1.5s infinite;
+}
+
+@keyframes pulse-bg {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.stage-status.error {
+  display: block;
+  background: var(--vermillion-soft);
+  color: var(--vermillion);
+}
+
+.stage-status.success {
+  display: block;
+}
+
+/* --- Dialogue Output --- */
+.stage-output {
+  display: none;
+  margin-top: 0.5rem;
+}
+
+.stage-output.visible {
+  display: block;
+}
+
+.stage-output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.stage-output-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.stage-output-meta {
+  font-size: 0.7rem;
+  color: var(--ink-ghost);
+}
+
+.stage-regenerate-btn {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--sand-border);
+  border-radius: 6px;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stage-regenerate-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.dialogue-scene {
+  background: var(--rice-light);
+  border: 1px solid var(--sand-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.dialogue-characters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+}
+
+.dialogue-char-card {
+  font-size: 0.72rem;
+  padding: 0.3rem 0.6rem;
+  background: var(--accent-soft);
+  border-radius: 12px;
+  color: var(--ink-light);
+}
+
+.dialogue-char-name {
+  font-weight: 600;
+}
+
+.dialogue-char-role {
+  color: var(--ink-faint);
+}
+
+.dialogue-setting {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  font-style: italic;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--sand-border);
+}
+
+.dialogue-line {
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--accent-soft);
+}
+
+.dialogue-line:last-child {
+  margin-bottom: 0;
+}
+
+.dialogue-speaker {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.dialogue-zh {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 0.15rem;
+}
+
+.dialogue-pinyin {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  line-height: 1.4;
+  margin-bottom: 0.15rem;
+}
+
+.dialogue-en {
+  font-size: 0.78rem;
+  color: var(--ink-ghost);
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.dialogue-vocab-highlight {
+  background: var(--gold-soft);
+  border-radius: 2px;
+  padding: 0 0.15rem;
+}
+
+.dialogue-notes {
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--sand-border);
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  line-height: 1.6;
+}
+
+.dialogue-notes strong {
+  color: var(--ink-light);
 }
 
 /* ========== FAVORITE STARS ========== */
@@ -1387,11 +2622,11 @@ nav.tabs {
 
 .cat-toggle-btn {
   white-space: nowrap;
-  padding: 0.6rem 0.75rem;
-  border: none;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: var(--accent);
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--sand-border);
+  border-radius: 20px;
+  background: var(--rice-dark);
+  color: var(--ink-light);
   font-family: 'Noto Sans TC', sans-serif;
   font-size: 0.78rem;
   cursor: pointer;
@@ -1400,8 +2635,14 @@ nav.tabs {
   line-height: 1.3;
 }
 
+.cat-toggle-btn:hover {
+  background: var(--sand);
+  border-color: var(--ink-ghost);
+}
+
 .cat-toggle-btn:active {
   transform: scale(0.95);
+  background: var(--sand);
 }
 
 /* ========== DRILL THEME OVERRIDES ========== */
@@ -2046,6 +3287,384 @@ footer .footer-line {
   color: var(--accent);
 }
 
+/* ========== THE FORGE ========== */
+.forge-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem;
+}
+
+.forge-header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.forge-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--ink-dark);
+  margin: 0 0 0.5rem 0;
+}
+
+.forge-subtitle {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+.forge-input-section {
+  margin-bottom: 1rem;
+}
+
+.forge-input-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.forge-input {
+  flex: 1;
+  min-width: 0;
+  border: 1.5px solid var(--sand-border);
+  border-radius: 0.5rem;
+  padding: 0.7rem 0.85rem;
+  font-size: 1.05rem;
+  font-family: 'Noto Sans TC', sans-serif;
+  color: var(--ink);
+  background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.forge-input:focus {
+  outline: none;
+  border-color: var(--vermillion);
+  box-shadow: 0 0 0 3px rgba(200,75,49,0.15);
+}
+
+.forge-input::placeholder {
+  color: var(--ink-faint);
+  font-size: 0.95rem;
+}
+
+.forge-btn {
+  background: var(--vermillion);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.forge-btn:hover {
+  background: #a83d28;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(200,75,49,0.3);
+}
+
+.forge-btn:active {
+  transform: translateY(0);
+}
+
+.forge-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.forge-btn-opus {
+  background: #8B2E1A;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.forge-btn-opus:hover {
+  background: #6e2414;
+  box-shadow: 0 4px 12px rgba(200,75,49,0.25);
+}
+
+.forge-api-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: rgba(200,75,49,0.04);
+  border: 1px solid rgba(200,75,49,0.12);
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.forge-api-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.forge-api-row label {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+.forge-api-input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.forge-api-input {
+  flex: 1;
+  border: 1px solid rgba(200,75,49,0.2);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  color: var(--ink);
+  background: white;
+  transition: border-color 0.2s;
+}
+
+.forge-api-input:focus {
+  outline: none;
+  border-color: var(--vermillion);
+  box-shadow: 0 0 0 2px rgba(200,75,49,0.15);
+}
+
+.forge-help-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(200,75,49,0.3);
+  background: white;
+  color: var(--vermillion);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.forge-help-btn:hover {
+  background: rgba(200,75,49,0.08);
+  border-color: var(--vermillion);
+}
+
+.forge-opus-toggle {
+  display: block;
+  margin: 0.75rem auto 0;
+  background: none;
+  border: 1px solid rgba(200,75,49,0.25);
+  color: #8B2E1A;
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.forge-opus-toggle:hover {
+  background: rgba(200,75,49,0.08);
+  border-color: var(--vermillion);
+}
+
+.forge-status {
+  font-size: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  min-height: 0;
+  transition: all 0.3s;
+  display: none;
+  position: relative;
+}
+
+.forge-status.loading {
+  background: rgba(200,75,49,0.06);
+  border: 1px solid rgba(200,75,49,0.15);
+  color: var(--ink-light);
+  display: block;
+}
+
+.forge-status.success {
+  background: rgba(44, 36, 22, 0.04);
+  border: 1px solid var(--sand-border);
+  color: var(--ink-light);
+  display: block;
+}
+
+.forge-status.error {
+  background: rgba(220,38,38,0.05);
+  border: 1px solid rgba(220,38,38,0.15);
+  color: #b91c1c;
+  display: block;
+}
+
+.forge-status-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-ghost);
+  padding: 2px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.forge-status-close:hover {
+  color: var(--ink-light);
+}
+.forge-status-close svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* Forge Modals */
+.forge-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.forge-modal {
+  background: #f5f0e8;
+  border-radius: 0.75rem;
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.forge-modal-large {
+  max-width: 440px;
+}
+
+.forge-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--ink-faint);
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+}
+
+.forge-modal-close:hover {
+  color: var(--ink-dark);
+}
+
+.forge-modal-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #2c2416;
+  margin: 0 0 0.75rem 0;
+}
+
+.forge-modal-desc {
+  font-size: 0.85rem;
+  color: #5a4e3c;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+}
+
+.forge-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.forge-modal-form label {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+.forge-help-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.forge-help-step {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.forge-step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--vermillion);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.forge-step-text strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #2c2416;
+  margin-bottom: 0.2rem;
+}
+
+.forge-step-text p {
+  font-size: 0.82rem;
+  color: #5a4e3c;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.forge-help-note {
+  font-size: 0.78rem;
+  color: #5a4e3c;
+  font-style: italic;
+  margin: 0.75rem 0 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid #ddd5c4;
+  line-height: 1.5;
+}
+
+.cat-custom.active {
+  background: var(--vermillion-soft);
+  color: var(--vermillion);
+  border-color: var(--vermillion);
+}
+
 .glow {
   animation: glow-pulse 0.4s ease-out;
 }
@@ -2126,13 +3745,13 @@ footer .footer-line {
       <span class="tab-zh" id="tab-zh-drill"></span>
       Drill
     </button>
-    <button class="tab" data-tab="lexicon" role="tab">
-      <span class="tab-zh" id="tab-zh-lexicon"></span>
-      Lexicon
+    <button class="tab" data-tab="forge" role="tab">
+      <span class="tab-zh" id="tab-zh-forge"></span>
+      Forge
     </button>
-    <button class="tab" data-tab="connect" role="tab">
-      <span class="tab-zh" id="tab-zh-connect"></span>
-      Connect
+    <button class="tab" data-tab="stage" role="tab">
+      <span class="tab-zh" id="tab-zh-stage"></span>
+      Workshop
     </button>
   </nav>
 
@@ -2164,6 +3783,9 @@ footer .footer-line {
         <button class="cat-bubble unselected" data-cat="concept" id="cat-btn-concept">
           <span id="cat-zh-concept"></span> Concept
         </button>
+        <button class="cat-bubble cat-custom unselected" data-cat="custom" id="cat-btn-custom">
+          <span id="cat-zh-custom"></span> Custom
+        </button>
       </div>
     </div>
 
@@ -2187,15 +3809,17 @@ footer .footer-line {
         <div class="setup-subtitle">Configure your session</div>
 
         <div class="setup-section">
-          <div class="setup-label">
+          <div class="setup-label" style="display:flex; justify-content:space-between; align-items:center;">
             <span class="label-zh">Categories · <span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">分類<span class="hp-pinyin">fēnlèi</span></span></span>
+            <button class="drill-cat-toggle-btn" id="drill-cat-toggle-btn"></button>
           </div>
           <div class="setup-cats" id="drill-categories">
-            <button class="setup-cat-bubble cat-favorites unselected" data-cat="favorites">★ Favorites</button>
+            <button class="setup-cat-bubble cat-favorites unselected" data-cat="favorites">★</button>
             <button class="setup-cat-bubble unselected" data-cat="vocab"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">詞彙<span class="hp-pinyin">cíhuì</span></span></button>
             <button class="setup-cat-bubble unselected" data-cat="phrase"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">表達<span class="hp-pinyin">biǎodá</span></span></button>
             <button class="setup-cat-bubble unselected" data-cat="idiom"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">成語<span class="hp-pinyin">chéngyǔ</span></span></button>
             <button class="setup-cat-bubble unselected" data-cat="concept"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">概念<span class="hp-pinyin">gàiniàn</span></span></button>
+            <button class="setup-cat-bubble cat-custom unselected" data-cat="custom"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">自創<span class="hp-pinyin">zìchuàng</span></span></button>
           </div>
         </div>
 
@@ -2271,91 +3895,350 @@ footer .footer-line {
     </div>
   </div>
 
-  <!-- ========== LEXICON TAB ========== -->
-  <div id="lexicon-content" class="tab-content">
-    <div class="lexicon-container">
-      <div class="lexicon-header">
-        <h2 class="lexicon-title" id="lexicon-title"></h2>
+  <!-- ========== THE FORGE TAB ========== -->
+  <div id="forge-content" class="tab-content">
+    <div class="forge-container">
+      <div class="forge-header">
+        <h2 class="forge-title" id="forge-title"></h2>
+        <p class="forge-subtitle">Create enriched cards from any Chinese word or phrase</p>
       </div>
 
-      <div class="lexicon-form-section">
-        <form id="lexicon-form" class="lexicon-form">
-          <div class="form-group">
-            <label for="lexicon-trad">Traditional</label>
-            <input type="text" id="lexicon-trad" class="search-input" placeholder="詞"/>
-          </div>
-          <div class="form-group">
-            <label for="lexicon-pinyin">Pinyin</label>
-            <input type="text" id="lexicon-pinyin" class="search-input" placeholder="pīnyīn"/>
-          </div>
-          <div class="form-group">
-            <label for="lexicon-english">English</label>
-            <input type="text" id="lexicon-english" class="search-input" placeholder="meaning"/>
-          </div>
-          <div class="form-group">
-            <label for="lexicon-category">Category</label>
-            <select id="lexicon-category" class="search-input">
-              <option value="vocab">Vocabulary</option>
-              <option value="phrase">Phrase</option>
-              <option value="idiom">Idiom</option>
-              <option value="concept">Concept</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="lexicon-notes">Notes (Optional)</label>
-            <input type="text" id="lexicon-notes" class="search-input" placeholder="notes"/>
-          </div>
-          <button type="submit" class="lexicon-add-btn" id="lexicon-add-btn"></button>
-        </form>
-      </div>
-
-      <div class="lexicon-list-section">
-        <div id="lexicon-list" class="lexicon-list"></div>
-        <div id="lexicon-empty" class="lexicon-empty" style="display:none;"></div>
-      </div>
-
-      <div class="lexicon-master-trigger">
-        <input type="text" id="lexicon-trigger-input" class="lexicon-trigger-input" placeholder="..."/>
-      </div>
-
-      <div id="lexicon-master-panel" class="lexicon-master-panel" style="display:none;">
-        <h3 class="master-title">Generate Nugget</h3>
-        <div class="master-form-group">
-          <label for="master-word-input">Word or Phrase</label>
-          <input type="text" id="master-word-input" class="search-input" placeholder="Enter Chinese word or phrase"/>
+      <div class="forge-input-section">
+        <div class="forge-input-row">
+          <input type="text" id="forge-word-input" class="forge-input" placeholder="Type a Chinese word or phrase..." />
+          <button type="button" id="forge-btn" class="forge-btn">
+            <span id="forge-btn-label"></span>
+          </button>
         </div>
+      </div>
 
-        <div class="master-api-section">
-          <div class="master-form-group">
-            <label for="master-groq-key">Groq API Key</label>
-            <input type="password" id="master-groq-key" class="search-input" placeholder="gsk_..."/>
+      <div class="forge-api-section">
+        <div class="forge-api-row">
+          <label for="forge-groq-key">Enrich with Llama → Groq API Key</label>
+          <div class="forge-api-input-row">
+            <input type="password" id="forge-groq-key" class="forge-api-input" placeholder="gsk_..." />
+            <button type="button" id="forge-help-btn" class="forge-help-btn">?</button>
           </div>
-          <button type="button" id="master-generate-groq" class="master-btn master-btn-primary"></button>
         </div>
+      </div>
 
-        <div class="master-api-section">
-          <div class="master-form-group">
-            <label for="master-anthropic-key">Anthropic API Key</label>
-            <input type="password" id="master-anthropic-key" class="search-input" placeholder="sk-ant-..."/>
+      <button type="button" id="forge-opus-toggle" class="forge-opus-toggle">Sonnet</button>
+
+      <div id="forge-status" class="forge-status"></div>
+    </div>
+
+    <!-- Sonnet Modal -->
+    <div class="forge-modal-overlay" id="forge-opus-modal" style="display:none;">
+      <div class="forge-modal">
+        <button class="forge-modal-close" id="forge-opus-close">&#10005;</button>
+        <h3 class="forge-modal-title">Enrich with Sonnet</h3>
+        <p class="forge-modal-desc">Use Claude Sonnet for higher quality enrichment — deeper cultural context, better example sentences, more nuanced semantic notes.</p>
+        <div class="forge-modal-form">
+          <label for="forge-anthropic-key">Anthropic API Key</label>
+          <input type="password" id="forge-anthropic-key" class="forge-api-input" placeholder="sk-ant-..." />
+          <button type="button" id="forge-opus-btn" class="forge-btn forge-btn-opus">
+            <span id="forge-opus-btn-label"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="forge-modal-overlay" id="forge-help-modal" style="display:none;">
+      <div class="forge-modal forge-modal-large">
+        <button class="forge-modal-close" id="forge-help-close">&#10005;</button>
+        <h3 class="forge-modal-title">How to get a free Groq API key</h3>
+        <div class="forge-help-steps">
+          <div class="forge-help-step">
+            <span class="forge-step-num">1</span>
+            <div class="forge-step-text">
+              <strong>Go to console.groq.com</strong>
+              <p>Open your browser and navigate to console.groq.com</p>
+            </div>
           </div>
-          <button type="button" id="master-generate-anthropic" class="master-btn master-btn-secondary"></button>
+          <div class="forge-help-step">
+            <span class="forge-step-num">2</span>
+            <div class="forge-step-text">
+              <strong>Create a free account</strong>
+              <p>Sign up with Google or email — no credit card needed</p>
+            </div>
+          </div>
+          <div class="forge-help-step">
+            <span class="forge-step-num">3</span>
+            <div class="forge-step-text">
+              <strong>Go to "API Keys" in the sidebar</strong>
+              <p>Click on API Keys in the left navigation panel</p>
+            </div>
+          </div>
+          <div class="forge-help-step">
+            <span class="forge-step-num">4</span>
+            <div class="forge-step-text">
+              <strong>Create a new API key</strong>
+              <p>Click "Create API Key" and give it any name</p>
+            </div>
+          </div>
+          <div class="forge-help-step">
+            <span class="forge-step-num">5</span>
+            <div class="forge-step-text">
+              <strong>Copy and paste it here</strong>
+              <p>The key starts with gsk_ — paste it into the API key field above</p>
+            </div>
+          </div>
         </div>
-
-        <div id="master-status" class="master-status"></div>
+        <p class="forge-help-note">Groq is free and uses Meta's Llama model to generate your cards. Your key is stored locally in your browser — it never leaves your device.</p>
       </div>
     </div>
   </div>
 
-  <!-- ========== CONNECT TAB ========== -->
-  <div id="connect-content" class="tab-content">
-    <div class="connect-placeholder">
-      <div class="connect-icon">🕸</div>
-      <div class="connect-title" id="connect-title"></div>
-      <div class="connect-subtitle">Connections</div>
-      <div class="connect-subtitle">How do these nuggets relate to each other...</div>
-      <div class="connect-diagram">
-        [<span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">整理<span class="hp-pinyin">zhěnglǐ</span></span>] — [<span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">準備好了<span class="hp-pinyin">zhǔnbèi hǎo le</span></span>] — [<span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">知識庫<span class="hp-pinyin">zhīshi kù</span></span>]
+  <!-- ========== STAGE TAB (Sentence Generator) ========== -->
+  <div id="stage-content" class="tab-content">
+    <div class="stage-container">
+      <div class="stage-header">
+        <h2 class="stage-title" id="stage-title"></h2>
+        <p class="stage-subtitle">Craft Mandarin dialogues from your vocabulary</p>
       </div>
+
+      <!-- Vocab Picker -->
+      <div class="stage-section">
+        <div class="stage-label">
+          <span class="label-zh"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">词汇选择<span class="hp-pinyin">cíhuì xuǎnzé</span></span> Vocabulary</span>
+        </div>
+        <div class="vocab-picker" id="vocab-picker">
+          <button type="button" class="vocab-picker-trigger" id="vocab-picker-trigger">
+            <span id="vocab-picker-label">Select words...</span>
+            <span class="picker-count" id="vocab-picker-count">0</span>
+          </button>
+        </div>
+
+  <!-- Vocab Picker Floating Modal -->
+  <div class="vocab-modal-backdrop" id="vocab-modal-backdrop">
+    <div class="vocab-modal-card">
+      <div class="vocab-modal-header">
+        <span class="vocab-modal-title"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">选词<span class="hp-pinyin">xuǎncí</span></span> Select Words</span>
+        <button type="button" class="vocab-modal-close" id="vocab-modal-close">&times;</button>
+      </div>
+      <div class="vocab-picker-search">
+        <input type="text" id="vocab-picker-search" placeholder="Search pinyin, Chinese, or English..." />
+      </div>
+      <div class="vocab-cat-row" id="vocab-cat-row">
+        <button type="button" class="vocab-cat-pill active" data-vcat="everything">Everything</button>
+        <button type="button" class="vocab-cat-pill" data-vcat="vocab"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">词汇<span class="hp-pinyin">cíhuì</span></span></button>
+        <button type="button" class="vocab-cat-pill" data-vcat="phrase"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">表达<span class="hp-pinyin">biǎodá</span></span></button>
+        <button type="button" class="vocab-cat-pill" data-vcat="idiom"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">成语<span class="hp-pinyin">chéngyǔ</span></span></button>
+        <button type="button" class="vocab-cat-pill" data-vcat="concept"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">概念<span class="hp-pinyin">gàiniàn</span></span></button>
+        <button type="button" class="vocab-cat-pill" data-vcat="custom"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">自创<span class="hp-pinyin">zìchuàng</span></span></button>
+      </div>
+      <div class="vocab-control-bar">
+        <button type="button" class="vocab-control-btn" id="vocab-select-all-btn">Select All</button>
+        <button type="button" class="vocab-control-btn" id="vocab-clear-btn">Clear All</button>
+        <button type="button" class="vocab-control-btn" id="vocab-random-btn">Random 5</button>
+        <button type="button" class="vocab-control-btn" id="vocab-custom-btn">Custom</button>
+      </div>
+      <div class="vocab-picker-list" id="vocab-picker-list">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+      </div>
+
+      <!-- Length + HSK Level Row -->
+      <div class="stage-controls-row">
+        <div class="stage-section">
+          <div class="stage-label">
+            <span class="label-zh"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">长度<span class="hp-pinyin">chángdù</span></span> Length</span>
+          </div>
+          <div class="seg-control" id="seg-length">
+            <button data-val="short" class="active">Short</button>
+            <button data-val="medium">Medium</button>
+            <button data-val="long">Long</button>
+          </div>
+        </div>
+        <div class="stage-section">
+          <div class="stage-label">
+            <span class="label-zh"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">水平<span class="hp-pinyin">shuǐpíng</span></span> HSK Level</span>
+          </div>
+          <div class="seg-control" id="seg-hsk">
+            <button data-val="1" class="active">1</button>
+            <button data-val="2">2</button>
+            <button data-val="3">3</button>
+            <button data-val="4">4</button>
+            <button data-val="5">5</button>
+            <button data-val="6">6</button>
+          </div>
+          <div class="seg-hint" id="hsk-level-hint">Survival basics, simple SVO, ~150 words</div>
+        </div>
+      </div>
+
+      <!-- Speakers + Character Set Row -->
+      <div class="stage-controls-row">
+        <div class="stage-section">
+          <div class="stage-label">
+            <span class="label-zh"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">角色<span class="hp-pinyin">juésè</span></span> Speakers</span>
+          </div>
+          <div class="seg-control" id="seg-speakers">
+            <button data-val="2" class="active">2</button>
+            <button data-val="3">3</button>
+            <button data-val="4">4</button>
+          </div>
+        </div>
+        <div class="stage-section">
+          <div class="stage-label">
+            <span class="label-zh"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">字体<span class="hp-pinyin">zìtǐ</span></span> Characters</span>
+          </div>
+          <div class="seg-control" id="seg-charset">
+            <button data-val="simplified" class="active">Simplified</button>
+            <button data-val="traditional">Traditional</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topic / Setting -->
+      <div class="stage-section">
+        <div class="stage-label">
+          <span class="label-zh"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">场景<span class="hp-pinyin">chǎngjǐng</span></span> Setting</span>
+        </div>
+        <div class="stage-controls-row">
+          <select class="stage-select" id="stage-topic-preset" style="flex:1;">
+            <option value="">Custom topic...</option>
+            <option value="__surprise__">Surprise me</option>
+            <option value="eating out">Eating out</option>
+            <option value="getting around">Getting around</option>
+            <option value="at work">At work</option>
+            <option value="shopping">Shopping</option>
+            <option value="social life">Social life</option>
+            <option value="daily life">Daily life</option>
+          </select>
+          <input type="text" class="stage-text-input" id="stage-topic-custom" placeholder="Or type your own..." style="flex:1;" />
+        </div>
+      </div>
+
+      <!-- Character Roster -->
+      <div class="stage-section" id="character-roster-section" style="display:none;">
+        <div class="stage-label">
+          <span class="label-zh"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">人物<span class="hp-pinyin">rénwù</span></span> Cast</span>
+          <button type="button" class="roster-manage-btn" id="roster-manage-btn" title="Manage characters">+</button>
+        </div>
+        <div class="character-roster" id="character-roster">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Compact Controls Row: Spicy, Group, API Key -->
+      <div class="stage-compact-row">
+        <div class="spicy-toggle" id="spicy-toggle">
+          <button type="button" class="spicy-btn" id="spicy-btn" title="Make it spicy">&#x1F608;</button>
+          <span class="spicy-label">spicy</span>
+        </div>
+        <div class="group-toggle" id="group-toggle">
+          <button type="button" class="group-btn" id="group-btn" title="Balance dialogue volume for group reading">&#x1F465;</button>
+          <span class="group-label">group</span>
+        </div>
+        <div class="apikey-toggle">
+          <button type="button" class="apikey-btn" id="apikey-reveal-btn" title="Show/hide API key">&#x1F511;</button>
+          <span class="apikey-label">key</span>
+        </div>
+      </div>
+
+      <!-- API Key (hidden by default) -->
+      <div class="stage-api-section" id="stage-api-section" style="display:none;">
+        <span class="stage-api-label">Groq Key</span>
+        <input type="password" class="stage-api-input" id="stage-api-key" placeholder="gsk_..." />
+      </div>
+
+      <!-- Spicy Password Modal -->
+      <div class="spicy-pw-backdrop" id="spicy-pw-backdrop">
+        <div class="spicy-pw-card">
+          <div class="moria-gate-wrap" id="moria-gate-svg"></div>
+          <h3>Speak friend and enter.</h3>
+          <p class="moria-subtitle">这个功能是锁着的</p>
+          <input type="text" class="spicy-pw-input" id="spicy-pw-input" placeholder="..." autocomplete="off" />
+          <div class="spicy-pw-btns">
+            <button type="button" id="spicy-pw-cancel">Turn back</button>
+            <button type="button" class="confirm" id="spicy-pw-confirm">Enter</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Character Creator Modal -->
+      <div class="char-creator-backdrop" id="char-creator-backdrop">
+        <div class="char-creator-card">
+          <div class="char-creator-header">
+            <span class="char-creator-title"><span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">造人<span class="hp-pinyin">zào rén</span></span> Character Creator</span>
+            <button type="button" class="char-creator-close" id="char-creator-close">&times;</button>
+          </div>
+          <div class="char-creator-body">
+            <div class="char-field">
+              <label>Name <span class="char-field-hint">Chinese name</span></label>
+              <input type="text" id="char-name" placeholder="e.g. 王小明" />
+            </div>
+            <div class="char-field">
+              <label>Role <span class="char-field-hint">brief descriptor</span></label>
+              <input type="text" id="char-role" placeholder="e.g. exhausted barista, cocky intern" />
+            </div>
+            <div class="char-field">
+              <label>Want <span class="char-field-hint">what drives them</span></label>
+              <input type="text" id="char-want" placeholder="e.g. approval, control, escape" />
+            </div>
+            <div class="char-field">
+              <label>Fear <span class="char-field-hint">what they protect</span></label>
+              <input type="text" id="char-fear" placeholder="e.g. rejection, exposure, failure" />
+            </div>
+            <div class="char-field">
+              <label>Quirk <span class="char-field-hint">something unexpected</span></label>
+              <input type="text" id="char-quirk" placeholder="e.g. laughs when nervous, can't say no" />
+            </div>
+            <div class="char-field">
+              <label>Style</label>
+              <select id="char-style">
+                <option value="blunt">Blunt</option>
+                <option value="passive-aggressive">Passive-aggressive</option>
+                <option value="flowery">Flowery</option>
+                <option value="terse">Terse</option>
+                <option value="sarcastic">Sarcastic</option>
+                <option value="nervous">Nervous</option>
+                <option value="formal">Formal</option>
+                <option value="chaotic">Chaotic</option>
+              </select>
+            </div>
+            <div class="char-field">
+              <label>Notes <span class="char-field-hint">anything else</span></label>
+              <textarea id="char-notes" rows="2" placeholder="Optional freeform..."></textarea>
+            </div>
+          </div>
+          <div class="char-creator-actions">
+            <button type="button" class="char-save-btn" id="char-save-btn">Save</button>
+            <button type="button" class="char-enrich-btn" id="char-enrich-btn">Enrich with AI</button>
+          </div>
+          <div class="char-enrich-status" id="char-enrich-status"></div>
+          <!-- Saved characters list inside modal -->
+          <div class="char-saved-list" id="char-saved-list"></div>
+        </div>
+      </div>
+
+      <!-- Generate Button -->
+      <button type="button" class="stage-generate-btn" id="stage-generate-btn">
+        <span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">生成<span class="hp-pinyin">shēngchéng</span></span> Generate Dialogue
+      </button>
+
+      <!-- Status -->
+      <div class="stage-status" id="stage-status"></div>
+
+      <!-- Output Area -->
+      <div class="stage-output" id="stage-output">
+        <div class="stage-output-header">
+          <div>
+            <div class="stage-output-title" id="stage-output-title"></div>
+            <div class="stage-output-meta" id="stage-output-meta"></div>
+          </div>
+          <button type="button" class="stage-regenerate-btn" id="stage-regenerate-btn">
+            <span class="hover-pinyin" onmouseenter="hpShow(this)" onmouseleave="hpHide(this)">重新<span class="hp-pinyin">chóngxīn</span></span> Regenerate
+          </button>
+        </div>
+        <div class="dialogue-scene" id="dialogue-scene">
+          <!-- Dialogue lines rendered by JS -->
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -2562,6 +4445,26 @@ function toggleFavorite(nuggetId) {
   renderBrowse();
 }
 
+// ========== USER-CREATED NUGGETS ==========
+let ALL_NUGGETS = [...NUGGETS];
+
+function loadUserNuggets() {
+  try {
+    return JSON.parse(localStorage.getItem('user-nuggets') || '[]');
+  } catch(e) { return []; }
+}
+
+function rebuildAllNuggets() {
+  const userNuggets = loadUserNuggets();
+  ALL_NUGGETS = [...NUGGETS, ...userNuggets];
+  // Rebuild pinyin map with new entries
+  ALL_NUGGETS.forEach(n => {
+    _pinyinMap[n.traditional] = n.pinyin;
+    if (n.simplified) _pinyinMap[n.simplified] = n.pinyin;
+    if (n.relatedPinyin) Object.assign(_pinyinMap, n.relatedPinyin);
+  });
+}
+
 // ========== STATE ==========
 let state = {
   tab: 'browse',
@@ -2640,10 +4543,11 @@ function stripTones(str) {
 }
 
 function getFiltered() {
-  return NUGGETS.filter(n => {
-    // Check category match (including favorites as a virtual category)
+  return ALL_NUGGETS.filter(n => {
+    // Check category match (including favorites and custom as virtual categories)
     const catMatch = state.selectedCats.has(n.category) ||
-      (state.selectedCats.has('favorites') && state.favorites.has(n.id));
+      (state.selectedCats.has('favorites') && state.favorites.has(n.id)) ||
+      (state.selectedCats.has('custom') && n.userCreated);
     if (!catMatch) return false;
     if (state.searchQuery) {
       const q = state.searchQuery.toLowerCase();
@@ -2660,9 +4564,10 @@ function getFiltered() {
 }
 
 function getDrillFiltered() {
-  return NUGGETS.filter(n => {
+  return ALL_NUGGETS.filter(n => {
     if (state.drill.cats.has(n.category)) return true;
     if (state.drill.cats.has('favorites') && state.favorites.has(n.id)) return true;
+    if (state.drill.cats.has('custom') && n.userCreated) return true;
     return false;
   });
 }
@@ -2671,9 +4576,9 @@ function setTabAccent(tabName) {
   const root = document.documentElement;
   const accents = {
     browse: { color: '#2d6a4f', soft: 'rgba(45,106,79,0.12)' },
-    drill: { color: '#c84b31', soft: 'rgba(200,75,49,0.12)' },
-    lexicon: { color: '#2563eb', soft: 'rgba(37,99,235,0.12)' },
-    connect: { color: '#b8860b', soft: 'rgba(184,134,11,0.1)' },
+    drill: { color: '#4682b4', soft: 'rgba(70,130,180,0.12)' },
+    forge: { color: '#c84b31', soft: 'rgba(200,75,49,0.12)' },
+    stage: { color: '#8b2252', soft: 'rgba(139,34,82,0.12)' },
   };
   const a = accents[tabName] || accents.browse;
   root.style.setProperty('--accent', a.color);
@@ -2752,8 +4657,8 @@ function createCard(nugget, idx) {
   card.className = 'card';
   card.dataset.nid = nugget.id;
   const depthLabel = nugget.depth === 'basic' ? hoverPinyin('基礎', 'jīchǔ') + ' Basic' : nugget.depth === 'intermediate' ? hoverPinyin('中級', 'zhōngjí') + ' Intermediate' : hoverPinyin('深入', 'shēnrù') + ' Deep';
-  const catLabel = getCategoryLabelBilingual(nugget.category);
-  const posLabel = nugget.pos ? getPosLabel(nugget.pos) : null;
+  // Smart blue pill: vocab with POS shows POS, otherwise shows category
+  const typeLabel = (nugget.category === 'vocab' && nugget.pos) ? getPosLabel(nugget.pos) : getCategoryLabelBilingual(nugget.category);
   const hasComp = nugget.components && nugget.components.length > 0;
   const hasEx = nugget.examples && nugget.examples.length > 0;
   const hasRel = nugget.relatedWords && nugget.relatedWords.length > 0;
@@ -2771,9 +4676,8 @@ function createCard(nugget, idx) {
         <div class="card-english"><span class="card-english-text">${nugget.english}</span></div>
       </div>
       <div class="card-pills">
-        <div class="pill depth">${depthLabel}</div>
-        <div class="pill category">${catLabel}</div>
-        ${posLabel ? `<div class="pill pos">${posLabel}</div>` : ''}
+        <div class="pill depth ${(nugget.depth || '').toLowerCase()}">${depthLabel}</div>
+        <div class="pill pos">${typeLabel}</div>
       </div>
     </div>
     <div class="card-details">
@@ -2841,6 +4745,7 @@ function getCategoryLabel(cat) {
     phrase: hoverPinyin('表達', 'biǎodá'),
     idiom: hoverPinyin('成語', 'chéngyǔ'),
     concept: hoverPinyin('概念', 'gàiniàn'),
+    custom: hoverPinyin('自創', 'zìchuàng'),
     favorites: '★ Favorites'
   };
   return labels[cat] || cat;
@@ -2852,6 +4757,7 @@ function getCategoryLabelBilingual(cat) {
     phrase: hoverPinyin('表達', 'biǎodá') + ' Expression',
     idiom: hoverPinyin('成語', 'chéngyǔ') + ' Idiom',
     concept: hoverPinyin('概念', 'gàiniàn') + ' Concept',
+    custom: hoverPinyin('自創', 'zìchuàng') + ' Custom',
     favorites: '★ Favorites'
   };
   return labels[cat] || cat;
@@ -3037,7 +4943,7 @@ const _suppPinyin = {
 
 // Build pinyin lookup from NUGGETS data + supplementary dictionary
 const _pinyinMap = Object.assign({}, _suppPinyin);
-NUGGETS.forEach(n => { _pinyinMap[n.traditional] = n.pinyin; if (n.simplified) _pinyinMap[n.simplified] = n.pinyin; });
+ALL_NUGGETS.forEach(n => { _pinyinMap[n.traditional] = n.pinyin; if (n.simplified) _pinyinMap[n.simplified] = n.pinyin; });
 function lookupPinyin(word) { return _pinyinMap[word] || ''; }
 
 function formatCardPinyin(nugget) {
@@ -3196,8 +5102,8 @@ function renderDrillCard(nugget) {
   lookupBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     // Find this nugget's index in the full NUGGETS array
-    const browseIdx = NUGGETS.indexOf(nugget) !== -1 ? NUGGETS.indexOf(nugget) :
-      NUGGETS.findIndex(n => n.id === nugget.id);
+    const browseIdx = ALL_NUGGETS.indexOf(nugget) !== -1 ? ALL_NUGGETS.indexOf(nugget) :
+      ALL_NUGGETS.findIndex(n => n.id === nugget.id);
     if (browseIdx === -1) return;
 
     // Reset browse to ONLY show the category of this word
@@ -3370,7 +5276,7 @@ function renderDrillCard(nugget) {
   lookupBtnBack.title = 'View full entry in Browse';
   lookupBtnBack.addEventListener('click', (e) => {
     e.stopPropagation();
-    const browseIdx = NUGGETS.findIndex(n => n.id === nugget.id);
+    const browseIdx = ALL_NUGGETS.findIndex(n => n.id === nugget.id);
     if (browseIdx === -1) return;
     state.selectedCats.clear();
     state.selectedCats.add(nugget.category);
@@ -3475,14 +5381,10 @@ function renderProgressDots() {
   }
 }
 
-// ========== LEXICON FUNCTIONS ==========
+// ========== LEXICON FUNCTIONS (hidden but preserved) ==========
 function initLexicon() {
-  renderLexiconList();
-  document.getElementById('lexicon-title').innerHTML = hoverPinyin('詞庫', 'cíkù') + ' · Personal Lexicon';
-  document.getElementById('lexicon-add-btn').innerHTML = hoverPinyin('添加', 'tiānjiā');
-  // empty state text is now set dynamically in renderLexiconList()
-  document.getElementById('master-generate-groq').innerHTML = 'Generate (Free) • ' + hoverPinyin('免費', 'miǎnfèi');
-  document.getElementById('master-generate-anthropic').innerHTML = 'Generate (Opus 4.6) • ' + hoverPinyin('高級', 'gāojí');
+  // Lexicon tab is hidden — these elements no longer exist in DOM
+  // Kept as dead code to preserve localStorage data access
 }
 
 function getLexicon() {
@@ -3551,7 +5453,7 @@ function renderLexiconList() {
 }
 
 function generateNugget(word, provider) {
-  const statusDiv = document.getElementById('master-status');
+  const statusDiv = document.getElementById('forge-status');
 
   let apiKey = '';
   let endpoint = '';
@@ -3560,10 +5462,13 @@ function generateNugget(word, provider) {
   if (provider === 'groq') {
     apiKey = localStorage.getItem('groq-api-key');
     if (!apiKey) {
-      apiKey = prompt('Enter Groq API key (gsk_...):');
-      if (!apiKey) return;
+      apiKey = document.getElementById('forge-groq-key').value.trim();
+      if (!apiKey) {
+        statusDiv.className = 'forge-status error';
+        statusDiv.innerHTML = 'Please enter your Groq API key first.';
+        return;
+      }
       localStorage.setItem('groq-api-key', apiKey);
-      document.getElementById('master-groq-key').value = apiKey;
     }
     endpoint = 'https://api.groq.com/openai/v1/chat/completions';
     headers = {
@@ -3573,10 +5478,13 @@ function generateNugget(word, provider) {
   } else {
     apiKey = localStorage.getItem('anthropic-api-key');
     if (!apiKey) {
-      apiKey = prompt('Enter Anthropic API key (sk-ant-...):');
-      if (!apiKey) return;
+      apiKey = document.getElementById('forge-anthropic-key').value.trim();
+      if (!apiKey) {
+        statusDiv.className = 'forge-status error';
+        statusDiv.innerHTML = 'Please enter your Anthropic API key first.';
+        return;
+      }
       localStorage.setItem('anthropic-api-key', apiKey);
-      document.getElementById('master-anthropic-key').value = apiKey;
     }
     endpoint = 'https://api.anthropic.com/v1/messages';
     headers = {
@@ -3586,42 +5494,32 @@ function generateNugget(word, provider) {
     };
   }
 
-  statusDiv.className = 'master-status loading';
-  statusDiv.innerHTML = '⏳ Generating...';
+  statusDiv.className = 'forge-status loading';
+  statusDiv.innerHTML = 'Forging ' + word + '...';
 
-  const prompt = `You are a Chinese language expert. Given the word or phrase "${word}", generate a complete nugget in JSON format. Return ONLY valid JSON (no markdown, no explanation) with this exact structure:
-{
-  "traditional": "traditional Chinese characters",
-  "simplified": "simplified Chinese characters",
-  "pinyin": "pīnyīn with tones",
-  "english": "English meaning",
-  "semanticNote": "Brief semantic explanation",
-  "category": "vocab|phrase|idiom|concept",
-  "depth": "A|B|C|D",
-  "pos": "noun|verb|adjective|adverb|etc",
-  "components": [
-    {"char": "字", "pinyin": "zì", "meaning": "meaning"}
-  ],
-  "examples": [
-    {"zh": "example sentence", "en": "English translation"}
-  ],
-  "relatedWords": [
-    {"word": "related", "pinyin": "pīnyīn", "meaning": "meaning"}
-  ]
-}`;
+  // Disable button during generation
+  const forgeBtn = document.getElementById(provider === 'groq' ? 'forge-btn' : 'forge-opus-btn');
+  if (forgeBtn) forgeBtn.disabled = true;
+
+  const sysPrompt = 'You are a Chinese language expert creating flashcard data. Given a Chinese word or phrase, generate a complete JSON object. Return ONLY valid JSON with no markdown fences, no explanation, no extra text.\n\nCRITICAL FORMAT RULES:\n- "depth" must be one of: "basic", "intermediate", "rich"\n- "category" must be one of: "vocab", "phrase", "idiom", "concept"\n- "relatedWords" must be an array of OBJECTS with "word" (Traditional Chinese) and "pinyin" (with tone marks)\n- "examples" must have fields: "chinese", "pinyin", "english"\n- "components" breaks down each individual character with char, pinyin, meaning\n- All Chinese text should use Traditional Chinese characters\n- Pinyin must use tone marks (not numbers)\n- Provide 2 example sentences minimum\n- Provide 3-4 related words minimum\n- semanticNote should be 2-3 sentences explaining etymology, cultural context, and usage\n\nJSON structure:\n{\n  "traditional": "繁體字",\n  "simplified": "简体字",\n  "pinyin": "pīnyīn with tone marks",\n  "english": "concise English meaning",\n  "semanticNote": "Etymology and cultural context. Break down the component meanings and explain the concept. 2-3 sentences.",\n  "category": "vocab|phrase|idiom|concept",\n  "depth": "basic|intermediate|rich",\n  "pos": "noun|verb|adjective|adverb|conjunction|particle|phrase|idiom",\n  "components": [\n    {"char": "字", "pinyin": "zì", "meaning": "character, word"}\n  ],\n  "examples": [\n    {"chinese": "Traditional Chinese example sentence.", "pinyin": "Full pinyin with tone marks.", "english": "English translation."},\n    {"chinese": "Second example sentence.", "pinyin": "Full pinyin.", "english": "Translation."}\n  ],\n  "relatedWords": [{"word": "相關詞1", "pinyin": "xiāngguāncí"}, {"word": "相關詞2", "pinyin": "xiāngguāncí"}]\n}';
 
   let body = {};
   if (provider === 'groq') {
     body = {
       model: 'llama-3.3-70b-versatile',
-      messages: [{role: 'user', content: prompt}],
-      max_tokens: 2000
+      messages: [
+        {role: 'system', content: sysPrompt},
+        {role: 'user', content: 'Generate a complete flashcard for: ' + word}
+      ],
+      max_tokens: 2000,
+      temperature: 0.3
     };
   } else {
     body = {
-      model: 'claude-opus-4-6-20250929',
+      model: 'claude-sonnet-4-20250514',
       max_tokens: 2000,
-      messages: [{role: 'user', content: prompt}]
+      system: sysPrompt,
+      messages: [{role: 'user', content: 'Generate a complete flashcard for: ' + word}]
     };
   }
 
@@ -3630,43 +5528,762 @@ function generateNugget(word, provider) {
     headers: headers,
     body: JSON.stringify(body)
   })
-  .then(res => res.json())
-  .then(data => {
+  .then(function(res) {
+    if (!res.ok) {
+      return res.json().then(function(errData) {
+        throw new Error(errData.error && errData.error.message ? errData.error.message : 'API returned ' + res.status);
+      });
+    }
+    return res.json();
+  })
+  .then(function(data) {
     let jsonStr = '';
     if (provider === 'groq') {
+      if (!data.choices || !data.choices[0]) throw new Error('Unexpected API response format');
       jsonStr = data.choices[0].message.content;
     } else {
+      if (!data.content || !data.content[0]) throw new Error('Unexpected API response format');
       jsonStr = data.content[0].text;
     }
 
     const jsonMatch = jsonStr.match(/\{[\s\S]*\}/);
     if (!jsonMatch) throw new Error('No JSON found in response');
 
-    const nugget = JSON.parse(jsonMatch[0]);
+    const nuggetData = JSON.parse(jsonMatch[0]);
 
-    document.getElementById('lexicon-trad').value = nugget.traditional || '';
-    document.getElementById('lexicon-pinyin').value = nugget.pinyin || '';
-    document.getElementById('lexicon-english').value = nugget.english || '';
-    document.getElementById('lexicon-category').value = nugget.category || 'vocab';
-    document.getElementById('lexicon-notes').value = nugget.semanticNote || '';
+    // Build a complete nugget object matching the NUGGETS format
+    const userNuggets = JSON.parse(localStorage.getItem('user-nuggets') || '[]');
+    const newId = 10000 + Date.now() % 90000;
 
-    addLexiconWord(
-      nugget.traditional || '',
-      nugget.pinyin || '',
-      nugget.english || '',
-      nugget.category || 'vocab',
-      nugget.semanticNote || ''
-    );
+    const newNugget = {
+      id: newId,
+      traditional: nuggetData.traditional || word,
+      simplified: nuggetData.simplified || nuggetData.traditional || word,
+      pinyin: nuggetData.pinyin || '',
+      english: nuggetData.english || '',
+      category: ['vocab','phrase','idiom','concept'].includes(nuggetData.category) ? nuggetData.category : 'vocab',
+      depth: ['basic','intermediate','rich'].includes(nuggetData.depth) ? nuggetData.depth : 'intermediate',
+      pos: nuggetData.pos || null,
+      semanticNote: nuggetData.semanticNote || '',
+      components: Array.isArray(nuggetData.components) ? nuggetData.components : [],
+      examples: Array.isArray(nuggetData.examples) ? nuggetData.examples.map(function(ex) {
+        return {
+          chinese: ex.chinese || ex.zh || '',
+          pinyin: ex.pinyin || '',
+          english: ex.english || ex.en || ''
+        };
+      }) : [],
+      relatedWords: Array.isArray(nuggetData.relatedWords) ? nuggetData.relatedWords.map(function(w) {
+        if (typeof w === 'string') return w;
+        return w.word || w.traditional || '';
+      }) : [],
+      // Store pinyin for related words so it survives page reloads
+      relatedPinyin: Array.isArray(nuggetData.relatedWords) ? nuggetData.relatedWords.reduce(function(map, w) {
+        if (typeof w === 'object' && w.word && w.pinyin) map[w.word] = w.pinyin;
+        return map;
+      }, {}) : {},
+      userCreated: true
+    };
 
-    statusDiv.className = 'master-status success';
-    statusDiv.innerHTML = '✓ Nugget generated and added!';
-    setTimeout(() => { statusDiv.innerHTML = ''; }, 3000);
+    userNuggets.push(newNugget);
+    localStorage.setItem('user-nuggets', JSON.stringify(userNuggets));
+
+    // Rebuild ALL_NUGGETS and re-render
+    rebuildAllNuggets();
+    if (state.tab === 'browse') renderBrowse();
+
+    statusDiv.className = 'forge-status success';
+    statusDiv.innerHTML = '<button class="forge-status-close" onclick="this.parentElement.style.display=\'none\'"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' +
+      '<strong>' + newNugget.traditional + '</strong> (' + newNugget.pinyin + ') forged — find it in Browse under ' + newNugget.category + ' or Custom.';
+    document.getElementById('forge-word-input').value = '';
   })
-  .catch(err => {
-    statusDiv.className = 'master-status error';
-    statusDiv.innerHTML = '✗ Error: ' + (err.message || 'API request failed');
-    console.error('Generation error:', err);
+  .catch(function(err) {
+    statusDiv.className = 'forge-status error';
+    const closeBtn = '<button class="forge-status-close" onclick="this.parentElement.style.display=\'none\'"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+    const friendly = friendlyGroqError(err.message);
+    if (friendly) {
+      statusDiv.innerHTML = closeBtn + formatFriendlyError(friendly);
+    } else {
+      statusDiv.innerHTML = closeBtn + 'Error: ' + err.message;
+    }
+    console.error('Forge error:', err);
+  })
+  .finally(function() {
+    if (forgeBtn) forgeBtn.disabled = false;
   });
+}
+
+// ========== STAGE (SENTENCE GENERATOR) ==========
+const STAGE_USAGE_KEY = 'nugget-stage-usage';
+
+let stageState = {
+  selectedVocab: new Set(),   // Set of nugget IDs
+  vocabPickerOpen: false,
+  vocabSearchQuery: '',
+  vocabCatFilters: new Set(['everything']),  // Set of active category filters; 'everything' = show all
+  length: 'short',
+  hskLevel: 1,
+  charset: 'simplified',
+  speakers: 2,
+  groupMode: false,
+  spicyMode: false,
+  topicPreset: '',
+  topicCustom: '',
+  generating: false,
+  enriching: false,
+  lastOutput: null,
+  selectedCharacters: [],  // Array of character IDs from roster
+};
+
+const LENGTH_CONFIG = {
+  short:  { minChars: 150, maxChars: 300, maxTokens: 400 },
+  medium: { minChars: 400, maxChars: 600, maxTokens: 900 },
+  long:   { minChars: 700, maxChars: 1000, maxTokens: 1500 },
+};
+
+const CHARACTERS_KEY = 'nugget-characters';
+
+function loadSavedCharacters() {
+  try { return JSON.parse(localStorage.getItem(CHARACTERS_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+
+function saveSavedCharacters(chars) {
+  localStorage.setItem(CHARACTERS_KEY, JSON.stringify(chars));
+}
+
+function countCJKChars(text) {
+  const matches = text.match(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g);
+  return matches ? matches.length : 0;
+}
+
+function loadStageUsage() {
+  try {
+    return JSON.parse(localStorage.getItem(STAGE_USAGE_KEY) || '{}');
+  } catch(e) { return {}; }
+}
+
+function recordStageUsage(nuggetIds) {
+  const usage = loadStageUsage();
+  nuggetIds.forEach(function(id) {
+    usage[id] = (usage[id] || 0) + 1;
+  });
+  localStorage.setItem(STAGE_USAGE_KEY, JSON.stringify(usage));
+}
+
+function getStageUsageCount(nuggetId) {
+  const usage = loadStageUsage();
+  return usage[nuggetId] || 0;
+}
+
+function getStageVocabList() {
+  let pool = ALL_NUGGETS;
+
+  // Filter by categories (multi-select)
+  if (!stageState.vocabCatFilters.has('everything')) {
+    pool = pool.filter(n => {
+      if (stageState.vocabCatFilters.has('custom') && n.userCreated) return true;
+      return stageState.vocabCatFilters.has(n.category);
+    });
+  }
+
+  // Filter by search query
+  const q = stageState.vocabSearchQuery.toLowerCase().trim();
+  if (q) {
+    pool = pool.filter(n => {
+      const haystack = [
+        n.traditional, n.simplified, n.pinyin, n.english,
+        stripTones(n.pinyin)
+      ].join(' ').toLowerCase();
+      return haystack.includes(q);
+    });
+  }
+
+  return pool;
+}
+
+function renderVocabPicker() {
+  const list = document.getElementById('vocab-picker-list');
+  const filtered = getStageVocabList();
+
+  list.innerHTML = filtered.map(n => {
+    const checked = stageState.selectedVocab.has(n.id) ? 'checked' : '';
+    const usageCount = getStageUsageCount(n.id);
+    const usageBadge = usageCount > 0 ? `<span class="vp-usage">${usageCount}x</span>` : '<span class="vp-usage"></span>';
+    return `<label class="vocab-picker-item" data-id="${n.id}">
+      <input type="checkbox" ${checked} />
+      <span class="vp-char">${n.traditional}</span>
+      <span class="vp-pinyin">${n.pinyin}</span>
+      <span class="vp-en">${n.english}</span>
+      ${usageBadge}
+    </label>`;
+  }).join('');
+
+  // Update count badge on trigger button
+  updateVocabPickerCount();
+
+  // Update category pill active states
+  document.querySelectorAll('#vocab-cat-row .vocab-cat-pill').forEach(pill => {
+    pill.classList.toggle('active', stageState.vocabCatFilters.has(pill.dataset.vcat));
+  });
+}
+
+function updateVocabPickerCount() {
+  const count = stageState.selectedVocab.size;
+  document.getElementById('vocab-picker-count').textContent = count;
+  document.getElementById('vocab-picker-label').textContent =
+    count === 0 ? 'Select words...' :
+    count + ' word' + (count > 1 ? 's' : '') + ' selected';
+}
+
+function openVocabModal() {
+  const backdrop = document.getElementById('vocab-modal-backdrop');
+  backdrop.classList.add('open');
+  stageState.vocabPickerOpen = true;
+  renderVocabPicker();
+  // Small delay so the slide-up animation finishes before focusing
+  setTimeout(() => {
+    document.getElementById('vocab-picker-search').focus();
+  }, 350);
+}
+
+function closeVocabModal() {
+  const backdrop = document.getElementById('vocab-modal-backdrop');
+  backdrop.classList.remove('open');
+  stageState.vocabPickerOpen = false;
+  stageState.vocabSearchQuery = '';
+  document.getElementById('vocab-picker-search').value = '';
+}
+
+function getStageTopic() {
+  const custom = stageState.topicCustom.trim();
+  if (custom) return custom;
+  if (stageState.topicPreset === '__surprise__') {
+    return 'SURPRISE ME — Invent a specific, unexpected, and memorable scenario. Be creative: a weird mishap, an absurd coincidence, an awkward social situation, a mundane errand gone sideways. Give the scene a one-line scenario title in the "setting" field of your JSON output (e.g. "Accidentally ordering 47 watermelons on Taobao"). The scenario should be grounded in real Chinese daily life but with a twist that makes it funny or dramatic.';
+  }
+  return stageState.topicPreset || 'casual everyday conversation';
+}
+
+function buildStageSystemPrompt() {
+  const isTraditional = stageState.charset === 'traditional';
+  const charLabel = isTraditional ? 'Traditional Chinese (繁體字)' : 'Simplified Chinese (简体字)';
+
+  return `You are a Chinese dialogue writer who creates scenes that feel ALIVE — emotionally raw, psychologically real, and dramatically compelling. Your dialogues teach Mandarin through the mess and beauty of actual human interaction, not sanitized textbook exchanges.
+
+OUTPUT FORMAT: Return ONLY valid JSON. No markdown fences, no explanation, no extra text.
+
+JSON structure:
+{
+  "title": "Short evocative scene title in English",
+  "titleZh": "Scene title in ${charLabel}",
+  "setting": "Brief scene description including emotional context and stakes (1-2 sentences, in English)",
+  "characters": [
+    {
+      "name": "Character name in Chinese",
+      "role": "Brief role (e.g. 'exhausted mother', 'cocky intern')",
+      "want": "What they want in this scene",
+      "fear": "What they're afraid of or avoiding"
+    }
+  ],
+  "lines": [
+    {
+      "speaker": "Character name (Chinese)",
+      "zh": "${charLabel} dialogue line",
+      "pinyin": "Full pinyin with tone marks for the line",
+      "en": "Natural English translation that captures tone/subtext, not just literal meaning"
+    }
+  ],
+  "notes": "Grammar/culture notes PLUS: explain one moment of subtext or emotional undercurrent in the dialogue — what a character meant vs. what they said (2-3 sentences, in English)"
+}
+
+═══ CHARACTER PSYCHOLOGY ═══
+
+Before generating dialogue, internally construct a psychological profile for each character:
+- WANT: What do they want from this conversation? (approval, forgiveness, control, escape, connection, information)
+- OBSTACLE: What blocks them? (pride, fear, the other person's resistance, social norms, their own contradictions)
+- FEAR: What are they protecting? (ego, a secret, a relationship, their self-image)
+- TACTIC: How do they pursue their want? Use ACTION VERBS: persuade, deflect, confess, challenge, seduce, retreat, provoke, plead, manipulate, test, comfort, mock
+- DEFENSE MECHANISM: When threatened, how do they protect themselves? (humor, sarcasm, silence, changing the subject, aggression, excessive politeness, self-deprecation)
+
+Each line of dialogue should be a TACTIC — an attempt to get what the character wants. Characters do NOT narrate their feelings. They reveal them through indirection, avoidance, overcompensation, and subtext.
+
+═══ DIALOGUE AUTHENTICITY RULES ═══
+
+WHAT MAKES DIALOGUE DEAD:
+- Characters stating emotions directly ("我很生气" as the first thing they say)
+- Perfect grammar in casual speech
+- Every sentence complete and well-formed
+- No hesitation, no interruption, no trailing off
+- Polite, measured responses to emotional provocation
+- Characters who sound interchangeable
+
+WHAT MAKES DIALOGUE ALIVE:
+- Subtext: what characters DON'T say matters more than what they do. A character who says "随便" (whatever) might mean "I'm hurt you didn't ask me first."
+- Status transactions: one person has more power. That power shifts. Someone interrupts. Someone goes quiet. Someone laughs nervously.
+- Speech disfluencies: 那个..., 就是..., 我...算了, trailing off with 嗯... or 啊..., self-corrections, false starts. Use these SPARINGLY (1-2 per dialogue) but they signal realness.
+- Emotional escalation or de-escalation: feelings build, or someone strategically calms things down. The emotional temperature MOVES.
+- Distinct voices: if you cover the character names, we should know who's speaking from word choice, sentence length, and register alone.
+- Gricean violations: characters give too much information (anxiety), too little (withholding), change the subject (avoidance), or say the opposite of what they mean (sarcasm/irony).
+
+═══ EMOTIONAL RANGE ═══
+
+Draw from the FULL spectrum of human emotion. Not just "happy/sad/angry" but:
+- Passive aggression, jealousy, longing, embarrassment, relief, guilt, petty satisfaction
+- The tension of wanting to say something but holding back
+- Awkward silences that speak louder than words
+- Humor as a defense mechanism (self-deprecating jokes when vulnerable)
+- Anger masking hurt, confidence masking insecurity, indifference masking desire
+
+═══ TECHNICAL RULES ═══
+
+- Use ${charLabel} for ALL Chinese text — non-negotiable
+- Pinyin must use tone marks (ā á ǎ à), not numbers
+- English translations should capture TONE and SUBTEXT, not just literal meaning. If someone says "好啊" sarcastically, translate it as something like "Oh, sure. Great." not "Good."
+- The user specifies how many characters to include. Give each a distinct voice
+- Target vocabulary words MUST appear naturally — weave them into emotionally charged moments where possible (a word hits harder when it arrives during conflict or vulnerability)
+- Character names should fit the setting and suggest personality
+
+═══ HSK LEVEL COMPLIANCE ═══
+
+The user specifies an HSK level (1-6). ALL surrounding vocabulary and grammar (everything EXCEPT the user's chosen target vocabulary) MUST stay within that level. The user's selected words may be above the target level — that's intentional. But the scaffolding must be level-appropriate.
+
+IMPORTANT FOR LOW HSK LEVELS (1-2): Emotional authenticity does NOT require complex grammar. Even with 150 words, you can write dialogue with real feeling. A mother saying "你吃了吗？" for the fifth time carries worlds of meaning. Use repetition, tone particles (啊、吧、嘛、呢、哦), and simple words carrying heavy emotional weight. Subtext lives in WHAT is said and WHEN, not in how many clauses you use.`;
+}
+
+function getHskLevelConstraints(level) {
+  const constraints = {
+    1: {
+      label: 'HSK 1 — Absolute Beginner',
+      vocab: 'Only the ~150 most basic words: pronouns (我、你、他), numbers 1-10, 是、有、在、想、会, basic nouns (人、家、学校、医院), time words (今天、明天、昨天), simple adjectives (大、小、好、多、少).',
+      grammar: 'Simple SVO only. One clause per sentence max. Allowed patterns: 是...的, 不/没 negation, 吗/呢 questions, 的 possession, 了 for completed action, basic 很+adj. NO 把, NO 被, NO complements, NO 因为/所以.',
+      register: 'Casual and concrete. Short sentences (3-8 characters). Heavy use of 吗, 呢, 吧 particles. Formulaic phrases (你好、谢谢、对不起) welcome.',
+      topics: 'Greetings, introductions, family, numbers, time, food, weather, basic directions, simple shopping.',
+      complexity: 'Max 1 clause per sentence. No embedded clauses. No relative clauses. Keep it dead simple.',
+    },
+    2: {
+      label: 'HSK 2 — Elementary',
+      vocab: '~300 words. Adds: common verbs (觉得、知道、帮、让、给), directional words (上、下、左、右), measure words (个、本、杯、块), time expressions (以前、以后、的时候), descriptors (快、慢、远、近、新、旧).',
+      grammar: 'SVO with up to 2 clauses using simple connectors. Allowed: 了 (completed), 过 (experience), 在+V (ongoing), 比 comparisons, 因为...所以, 虽然...但是 (basic), 要/想/可以 modals. NO 把, NO 被, NO result complements.',
+      register: 'Daily casual. Sentences 5-12 characters. Can express sequences (先...然后), simple opinions (我觉得), basic reasons.',
+      topics: 'Shopping, transport, hobbies, health, school, simple schedules, describing people and places.',
+      complexity: 'Max 2 clauses per sentence. Simple connectors only. No nested structures.',
+    },
+    3: {
+      label: 'HSK 3 — Intermediate',
+      vocab: '~600 words. Adds: abstract verbs (决定、相信、担心、发现、影响), descriptive adjectives (方便、危险、重要、容易、难), adverbs (一直、终于、其实、大概), conjunctions (而且、或者、不过).',
+      grammar: 'Full range of basic grammar. Allowed: 把 construction, 被 passive, result complements (V+到/完/好/懂), 如果...就, 一边...一边, 越来越, 除了...以外. This is the transition from "textbook" to "real" Chinese.',
+      register: 'Everyday conversation with some depth. Can express opinions, plans, conditions, and mild emotions. Sentences 8-18 characters.',
+      topics: 'Travel, work, education, relationships, plans and goals, simple current events, cultural observations.',
+      complexity: 'Max 2-3 clauses. Relative clauses with 的 OK. Simple topic-comment structures.',
+    },
+    4: {
+      label: 'HSK 4 — Upper Intermediate',
+      vocab: '~1,200 words. Adds: formal verbs (讨论、交流、提供、支持、反对), abstract nouns (经验、机会、条件、环境、效果), discourse markers (首先、其次、总之、另外).',
+      grammar: 'Complex sentence patterns: 不但...而且, 无论...都, 既然...就, 与其...不如, 连...也/都. Sentence-level cohesion with discourse markers. Can use topic-comment, pivotal constructions, and serial verb patterns fluently.',
+      register: 'Semi-formal to formal. Can debate, explain, and narrate. Complete sentences expected. Polite forms (请、您) in appropriate contexts. Sentences 12-25 characters.',
+      topics: 'Society, culture, environment, career, abstract discussions about life, education policy, technology.',
+      complexity: 'Max 3-4 clauses. Nested subordinate clauses OK. Rhetorical structures (listing, contrasting, reasoning).',
+    },
+    5: {
+      label: 'HSK 5 — Advanced',
+      vocab: '~2,500 words. Adds: four-character idioms (成语) used naturally, formal/written vocabulary (尽管、何况、未必), domain-specific terms, subtle hedging (恐怕、似乎、不见得、未必).',
+      grammar: 'Sophisticated written and spoken patterns. 尽管...仍然, 即使...也, 非...不可, 之所以...是因为. Can use classical/literary particles sparingly (则、而、之). Complex nominalization and embedding.',
+      register: 'Professional and academic. Formal written register expected. Chengyu appear naturally (not forced). Nuanced hedging and politeness strategies.',
+      topics: 'Economics, politics, philosophy, technology, media, literature, international affairs, complex interpersonal dynamics.',
+      complexity: 'No strict clause limit. Sentences can be long and complex with multiple layers of embedding. Rhetorical sophistication expected.',
+    },
+    6: {
+      label: 'HSK 6 — Near-Native',
+      vocab: '5,000+ words. Full range including literary expressions, classical allusions (典故), rare but useful words, domain jargon, internet slang when contextually appropriate.',
+      grammar: 'Near-native. Classical constructions (所...者、非...而何), literary parallelism, rhetorical questions as argumentation, understatement, irony. The full expressive range of modern educated Chinese.',
+      register: 'Full spectrum from colloquial to literary within the same conversation. Register-switching as a stylistic device. Cultural allusions and wordplay welcome.',
+      topics: 'Anything. Philosophy, art, science, politics, history, satire, stream-of-consciousness, specialized professional domains.',
+      complexity: 'No limits. Multi-layered sentences, paragraph-level coherence, sophisticated discourse structure.',
+    },
+  };
+  return constraints[level] || constraints[3];
+}
+
+function buildCharacterEnrichmentPrompt(skeleton) {
+  return `You are a character psychologist and dialogue consultant. Given a basic character sketch, expand it into a rich psychological profile optimized for generating compelling, realistic Mandarin dialogue.
+
+INPUT CHARACTER:
+Name: ${skeleton.name}
+Role: ${skeleton.role || 'not specified'}
+Want: ${skeleton.want || 'not specified'}
+Fear: ${skeleton.fear || 'not specified'}
+Quirk: ${skeleton.quirk || 'not specified'}
+Communication Style: ${skeleton.commStyle || 'not specified'}
+Notes: ${skeleton.notes || 'none'}
+
+OUTPUT FORMAT: Return ONLY valid JSON with this structure:
+{
+  "name": "${skeleton.name}",
+  "role": "expanded role description",
+  "want": "deepened want — what do they REALLY want underneath the surface want?",
+  "fear": "deepened fear — what specific scenario or exposure terrifies them?",
+  "quirk": "expanded quirk — how does this manifest in speech and behavior?",
+  "commStyle": "${skeleton.commStyle || 'blunt'}",
+  "defenseMechanism": "how they protect themselves when threatened (humor, sarcasm, silence, topic-changing, aggression, excessive politeness, self-deprecation, etc.)",
+  "speechPatterns": "specific verbal habits: sentence length tendencies, favorite particles or filler words, verbal tics, how formal/casual they default to, any catchphrases",
+  "statusBehavior": "high-status, low-status, or status-shifting? How do they assert or defer in conversations?",
+  "contradiction": "the internal contradiction that makes them interesting — the gap between how they present and who they really are",
+  "bestScenarios": "2-3 scenario types where this character would be most compelling (e.g., 'confronted by authority', 'asked for a favor they can't refuse', 'caught in a lie')"
+}
+
+Make the character feel REAL — messy, contradictory, human. Avoid generic descriptions. Be specific and surprising.`;
+}
+
+function getHskHint(level) {
+  const hints = {
+    1: 'Survival basics, simple SVO, ~150 words',
+    2: 'Daily life, 了/过/比 patterns, ~300 words',
+    3: 'Everyday conversation, 把/被 constructions, ~600 words',
+    4: 'Complex patterns, semi-formal register, ~1,200 words',
+    5: 'Advanced, idioms and hedging, ~2,500 words',
+    6: 'Near-native, full literary range, 5,000+ words',
+  };
+  return hints[level] || hints[3];
+}
+
+function buildStageUserMessage() {
+  const selectedNuggets = ALL_NUGGETS.filter(n => stageState.selectedVocab.has(n.id));
+  const charKey = stageState.charset === 'traditional' ? 'traditional' : 'simplified';
+  const vocabList = selectedNuggets.map(n =>
+    `${n[charKey] || n.traditional} (${n.pinyin}) — ${n.english}`
+  ).join('\n');
+
+  const lc = LENGTH_CONFIG[stageState.length];
+
+  const hsk = getHskLevelConstraints(stageState.hskLevel);
+
+  // Build character roster injection if user has selected saved characters
+  let characterInstructions = '';
+  if (stageState.selectedCharacters.length > 0) {
+    const savedChars = loadSavedCharacters();
+    const selected = stageState.selectedCharacters
+      .map(id => savedChars.find(c => c.id === id))
+      .filter(Boolean);
+    if (selected.length > 0) {
+      characterInstructions = '\n\nUSE THESE SPECIFIC CHARACTERS (do NOT invent new ones):\n' +
+        selected.map(c => {
+          const profile = c.enriched || c;
+          return `- ${profile.name || c.name} (${profile.role || c.role}): Want: ${profile.want || '—'}, Fear: ${profile.fear || '—'}, Quirk: ${profile.quirk || '—'}, Style: ${profile.commStyle || '—'}` +
+            (profile.speechPatterns ? `, Speech: ${profile.speechPatterns}` : '') +
+            (profile.defenseMechanism ? `, Defense: ${profile.defenseMechanism}` : '');
+        }).join('\n');
+    }
+  }
+
+  return `Generate a dialogue scene with these parameters:
+
+VOCABULARY TO INCLUDE (use ALL of these naturally in the dialogue):
+${vocabList}
+
+LENGTH TARGET: Your total Chinese dialogue output (all "zh" fields combined) should be approximately ${lc.minChars}–${lc.maxChars} Chinese characters. The number of dialogue turns is flexible — some lines can be short, others longer — but the total Chinese character count must land in this range. If you're approaching the upper limit, end the conversation naturally.
+
+NUMBER OF CHARACTERS: Exactly ${stageState.speakers} characters in this scene.${stageState.speakers >= 3 ? ' The additional character(s) should add dynamic texture — a bystander who chimes in, an authority figure who interrupts, a friend who makes things awkward. Even if they speak less, their presence should create comedy, irony, or social friction.' : ''}
+${stageState.groupMode ? `\nGROUP MODE: Distribute dialogue volume EQUALLY across all ${stageState.speakers} characters. Each character should speak approximately the same total number of Chinese characters (within ±15%). Individual lines may vary in length, but total per-character volume must balance. This dialogue will be used for dramatic reading practice where each person takes a role.` : ''}
+
+SETTING/TOPIC: ${getStageTopic()}
+
+HSK LEVEL: ${hsk.label}
+
+VOCABULARY CONSTRAINTS (for all words EXCEPT the target vocabulary above):
+${hsk.vocab}
+
+GRAMMAR CONSTRAINTS:
+${hsk.grammar}
+
+REGISTER/TONE:
+${hsk.register}
+
+SENTENCE COMPLEXITY:
+${hsk.complexity}
+
+TONE PRIORITY: Prioritize comedy, dramatic irony, and social awkwardness. Funny and cringeworthy moments are MORE memorable for language learners than bland exchanges. Make the reader laugh, wince, or feel secondhand embarrassment.
+${characterInstructions}
+IMPORTANT: The target vocabulary words listed above may be ABOVE this HSK level — that's fine, they are the words the learner is studying. But ALL other words and grammar in the dialogue must stay within HSK ${stageState.hskLevel}. The learner should be able to understand everything else in the dialogue without a dictionary.
+
+Remember: Return ONLY valid JSON. Every vocabulary word listed above MUST appear in at least one dialogue line.${stageState.spicyMode ? `
+
+SPICY MODE ACTIVE: Make this dialogue edgy, irreverent, and adult. Include profanity (骂人话), innuendo, flirting, crude humor, dark comedy, or provocative topics as appropriate for the setting. Think: how real adults actually talk when no teachers are listening. Swear words, slang, 脏话, internet culture references — all fair game. Keep it fun and entertaining, not gratuitously offensive. The goal is to teach REAL Chinese, not textbook Chinese.` : ''}`;
+}
+
+// ========== GROQ ERROR INTERCEPTION ==========
+function friendlyGroqError(rawMessage) {
+  const msg = rawMessage || '';
+
+  // Rate limit: tokens per day (TPD)
+  const tpdMatch = msg.match(/tokens per day \(TPD\).*?Limit (\d[\d,]*).*?Please try again in ([\d\w.]+)/i);
+  if (tpdMatch) {
+    const waitRaw = tpdMatch[2];
+    // Parse "19m45.408s" or "3h12m" style strings
+    let waitFriendly = waitRaw;
+    const hMatch = waitRaw.match(/([\d.]+)h/);
+    const mMatch = waitRaw.match(/([\d.]+)m/);
+    if (hMatch && mMatch) waitFriendly = Math.round(parseFloat(hMatch[1])) + 'h ' + Math.round(parseFloat(mMatch[1])) + 'min';
+    else if (mMatch) waitFriendly = Math.round(parseFloat(mMatch[1])) + ' minutes';
+    return {
+      title: 'Daily token limit reached',
+      body: 'Groq\'s free tier allows 100,000 tokens per day and you\'ve used them up. Your budget resets in about ' + waitFriendly + '. You can wait it out, or upgrade to a paid tier at console.groq.com/settings/billing.',
+      type: 'rate-limit-daily'
+    };
+  }
+
+  // Rate limit: tokens per minute (TPM)
+  const tpmMatch = msg.match(/tokens per minute \(TPM\).*?Please try again in ([\d\w.]+)/i);
+  if (tpmMatch) {
+    const secs = parseFloat(tpmMatch[1]) || 60;
+    return {
+      title: 'Slow down — per-minute limit hit',
+      body: 'Groq\'s free tier allows 6,000 tokens per minute. Wait about ' + Math.ceil(secs) + ' seconds and try again. This is just a brief cooldown, not a daily limit.',
+      type: 'rate-limit-minute'
+    };
+  }
+
+  // Rate limit: requests per minute (RPM)
+  const rpmMatch = msg.match(/requests per minute \(RPM\).*?Please try again in ([\d\w.]+)/i);
+  if (rpmMatch) {
+    const secs = parseFloat(rpmMatch[1]) || 60;
+    return {
+      title: 'Too many requests — cooldown',
+      body: 'Groq\'s free tier allows 30 requests per minute. Wait ' + Math.ceil(secs) + ' seconds and try again.',
+      type: 'rate-limit-minute'
+    };
+  }
+
+  // Rate limit: requests per day (RPD)
+  const rpdMatch = msg.match(/requests per day \(RPD\).*?Please try again in ([\d\w.]+)/i);
+  if (rpdMatch) {
+    return {
+      title: 'Daily request limit reached',
+      body: 'You\'ve hit the maximum number of API requests for today on Groq\'s free tier. Your quota resets at midnight UTC. Consider upgrading at console.groq.com/settings/billing.',
+      type: 'rate-limit-daily'
+    };
+  }
+
+  // Generic rate limit (catch-all for 429s)
+  if (msg.toLowerCase().includes('rate limit') || msg.toLowerCase().includes('rate_limit')) {
+    return {
+      title: 'Rate limit reached',
+      body: 'Groq\'s free tier has usage limits. Wait a moment and try again. If this keeps happening, you may have hit a daily cap — check console.groq.com for your usage.',
+      type: 'rate-limit'
+    };
+  }
+
+  // Invalid API key
+  if (msg.toLowerCase().includes('invalid api key') || msg.toLowerCase().includes('authentication') || msg.includes('401')) {
+    return {
+      title: 'Invalid API key',
+      body: 'Your Groq API key doesn\'t seem to work. Double-check it at console.groq.com/keys — make sure you copied the full key starting with "gsk_".',
+      type: 'auth'
+    };
+  }
+
+  // Model not found / unavailable
+  if (msg.toLowerCase().includes('model') && (msg.toLowerCase().includes('not found') || msg.toLowerCase().includes('does not exist'))) {
+    return {
+      title: 'Model unavailable',
+      body: 'The AI model is temporarily unavailable on Groq. This usually resolves within minutes. Try again shortly.',
+      type: 'model'
+    };
+  }
+
+  // Fallback: unknown error, still make it friendlier
+  return null;
+}
+
+function formatFriendlyError(parsed) {
+  return '<strong>' + parsed.title + '</strong><br>' + parsed.body;
+}
+
+function generateDialogue() {
+  if (stageState.generating) return;
+  if (stageState.selectedVocab.size === 0) {
+    showStageStatus('error', 'Select at least one vocabulary word first.');
+    return;
+  }
+  if (stageState.selectedVocab.size > 12) {
+    showStageStatus('error', 'Too many words selected (max 12). The dialogue would lose coherence.');
+    return;
+  }
+
+  // Get API key — check stage input first, then fall back to Forge's stored Groq key
+  let apiKey = document.getElementById('stage-api-key').value.trim();
+  if (!apiKey) {
+    apiKey = localStorage.getItem('groq-api-key') || '';
+  }
+  if (!apiKey) {
+    showStageStatus('error', 'Please enter your Groq API key. It\'s free at console.groq.com');
+    return;
+  }
+  // Store it for future use (shared with Forge)
+  localStorage.setItem('groq-api-key', apiKey);
+
+  stageState.generating = true;
+  const btn = document.getElementById('stage-generate-btn');
+  btn.disabled = true;
+  showStageStatus('loading', 'Writing your scene...');
+  document.getElementById('stage-output').classList.remove('visible');
+
+  const lc = LENGTH_CONFIG[stageState.length];
+  const body = {
+    model: 'llama-3.3-70b-versatile',
+    messages: [
+      { role: 'system', content: buildStageSystemPrompt() },
+      { role: 'user', content: buildStageUserMessage() }
+    ],
+    max_tokens: lc.maxTokens,
+    temperature: 0.85
+  };
+
+  fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + apiKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+  .then(function(res) {
+    if (!res.ok) {
+      return res.json().then(function(errData) {
+        throw new Error(errData.error && errData.error.message ? errData.error.message : 'API returned ' + res.status);
+      });
+    }
+    return res.json();
+  })
+  .then(function(data) {
+    if (!data.choices || !data.choices[0]) throw new Error('Unexpected API response format');
+    const jsonStr = data.choices[0].message.content;
+    const jsonMatch = jsonStr.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('No JSON found in response');
+
+    const dialogue = JSON.parse(jsonMatch[0]);
+    stageState.lastOutput = dialogue;
+    renderDialogueOutput(dialogue);
+    hideStageStatus();
+    // Record usage for each selected vocab word
+    recordStageUsage([...stageState.selectedVocab]);
+  })
+  .catch(function(err) {
+    const friendly = friendlyGroqError(err.message);
+    if (friendly) {
+      showStageStatus('error', formatFriendlyError(friendly), true);
+    } else {
+      showStageStatus('error', 'Error: ' + err.message);
+    }
+    console.error('Stage generation error:', err);
+  })
+  .finally(function() {
+    stageState.generating = false;
+    btn.disabled = false;
+  });
+}
+
+function showStageStatus(type, msg, isHtml) {
+  const el = document.getElementById('stage-status');
+  el.className = 'stage-status ' + type;
+  if (isHtml) { el.innerHTML = msg; } else { el.textContent = msg; }
+}
+
+function hideStageStatus() {
+  const el = document.getElementById('stage-status');
+  el.className = 'stage-status';
+}
+
+function renderDialogueOutput(dialogue) {
+  const output = document.getElementById('stage-output');
+  const scene = document.getElementById('dialogue-scene');
+
+  // Title
+  document.getElementById('stage-output-title').textContent =
+    (dialogue.titleZh || '') + ' ' + (dialogue.title || '');
+
+  // Meta
+  const vocabUsed = stageState.selectedVocab.size;
+  document.getElementById('stage-output-meta').textContent =
+    vocabUsed + ' vocab \u00B7 HSK ' + stageState.hskLevel + ' \u00B7 ' + stageState.length + ' \u00B7 ' + stageState.speakers + ' speakers' + (stageState.groupMode ? ' \u00B7 group' : '') + (stageState.spicyMode ? ' \u00B7 \uD83D\uDE08' : '');
+
+  // Build vocab set for highlighting (include both character sets for robust matching)
+  const selectedNuggets = ALL_NUGGETS.filter(n => stageState.selectedVocab.has(n.id));
+  const vocabChars = [];
+  selectedNuggets.forEach(n => {
+    if (n.traditional) vocabChars.push(n.traditional);
+    if (n.simplified && n.simplified !== n.traditional) vocabChars.push(n.simplified);
+  });
+
+  // Render character profiles if present
+  let html = '';
+  if (Array.isArray(dialogue.characters) && dialogue.characters.length > 0) {
+    html += '<div class="dialogue-characters">';
+    dialogue.characters.forEach(function(c) {
+      html += '<div class="dialogue-char-card">';
+      html += '<span class="dialogue-char-name">' + (c.name || '') + '</span>';
+      if (c.role) html += ' <span class="dialogue-char-role">' + c.role + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+
+  if (dialogue.setting) {
+    html += `<div class="dialogue-setting">${dialogue.setting}</div>`;
+  }
+
+  if (Array.isArray(dialogue.lines)) {
+    dialogue.lines.forEach(function(line) {
+      let zhText = line.zh || '';
+      // Highlight vocab words in the Chinese text
+      vocabChars.forEach(function(word) {
+        if (zhText.includes(word)) {
+          zhText = zhText.split(word).join('<span class="dialogue-vocab-highlight">' + word + '</span>');
+        }
+      });
+
+      html += `<div class="dialogue-line">
+        <div class="dialogue-speaker">${line.speaker || ''}</div>
+        <div class="dialogue-zh">${zhText}</div>
+        <div class="dialogue-pinyin">${line.pinyin || ''}</div>
+        <div class="dialogue-en">${line.en || ''}</div>
+      </div>`;
+    });
+  }
+
+  if (dialogue.notes) {
+    html += `<div class="dialogue-notes"><strong>Notes:</strong> ${dialogue.notes}</div>`;
+  }
+
+  // Count CJK characters across all dialogue lines
+  let totalCJK = 0;
+  if (Array.isArray(dialogue.lines)) {
+    dialogue.lines.forEach(function(line) {
+      totalCJK += countCJKChars(line.zh || '');
+    });
+  }
+  // Per-character volume breakdown
+  let charVolume = '';
+  if (Array.isArray(dialogue.lines) && Array.isArray(dialogue.characters)) {
+    const volMap = {};
+    dialogue.lines.forEach(function(line) {
+      const sp = line.speaker || '';
+      volMap[sp] = (volMap[sp] || 0) + countCJKChars(line.zh || '');
+    });
+    const parts = Object.entries(volMap).map(function(entry) {
+      return entry[0] + ': ' + entry[1];
+    });
+    if (parts.length > 1) charVolume = parts.join(' · ');
+  }
+
+  html += '<div class="dialogue-char-count">' + totalCJK + ' characters';
+  if (charVolume) html += ' <span class="char-count-breakdown">(' + charVolume + ')</span>';
+  html += '</div>';
+
+  scene.innerHTML = html;
+  output.classList.add('visible');
+
+  // Scroll to output
+  output.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ========== EVENT HANDLERS ==========
@@ -3695,10 +6312,11 @@ document.getElementById('search-input').addEventListener('input', e => {
   renderBrowse();
 });
 
-// Browse category filter
+// Browse category filter — use closest() so taps on inner hover-pinyin spans still work
 document.getElementById('browse-categories').addEventListener('click', e => {
-  if (e.target.classList.contains('cat-bubble')) {
-    const cat = e.target.dataset.cat;
+  const bubble = e.target.closest('.cat-bubble');
+  if (bubble) {
+    const cat = bubble.dataset.cat;
     if (state.selectedCats.has(cat)) {
       state.selectedCats.delete(cat);
     } else {
@@ -3710,14 +6328,14 @@ document.getElementById('browse-categories').addEventListener('click', e => {
   }
 });
 
-// Category toggle button (全選/清除) — only affects the 4 main categories, not favorites
+// Category toggle button (全選/清除) — affects ALL categories including favorites
 document.getElementById('cat-toggle-btn').addEventListener('click', () => {
-  const mainCats = ['vocab', 'phrase', 'idiom', 'concept'];
-  const allSelected = mainCats.every(c => state.selectedCats.has(c));
+  const allCats = ['favorites', 'vocab', 'phrase', 'idiom', 'concept', 'custom'];
+  const allSelected = allCats.every(c => state.selectedCats.has(c));
   if (allSelected) {
-    mainCats.forEach(c => state.selectedCats.delete(c));
+    allCats.forEach(c => state.selectedCats.delete(c));
   } else {
-    mainCats.forEach(c => state.selectedCats.add(c));
+    allCats.forEach(c => state.selectedCats.add(c));
   }
   updateCategoryBubbles('browse');
   updateCatToggleBtn();
@@ -3725,8 +6343,8 @@ document.getElementById('cat-toggle-btn').addEventListener('click', () => {
 });
 
 function updateCatToggleBtn() {
-  const mainCats = ['vocab', 'phrase', 'idiom', 'concept'];
-  const allSelected = mainCats.every(c => state.selectedCats.has(c));
+  const allCats = ['favorites', 'vocab', 'phrase', 'idiom', 'concept', 'custom'];
+  const allSelected = allCats.every(c => state.selectedCats.has(c));
   const btn = document.getElementById('cat-toggle-btn');
   btn.innerHTML = allSelected ? hoverPinyin('清除', 'qīngchú') + ' Clear' : hoverPinyin('全選', 'quánxuǎn') + ' All';
 }
@@ -3797,6 +6415,27 @@ document.getElementById('drill-categories').addEventListener('click', e => {
   }
 });
 
+// Drill category toggle (select all / clear)
+document.getElementById('drill-cat-toggle-btn').addEventListener('click', () => {
+  const mainCats = ['vocab', 'phrase', 'idiom', 'concept', 'custom'];
+  const allSelected = mainCats.every(c => state.drill.cats.has(c));
+  if (allSelected) {
+    mainCats.forEach(c => state.drill.cats.delete(c));
+  } else {
+    mainCats.forEach(c => state.drill.cats.add(c));
+  }
+  updateCategoryBubbles('drill');
+  updateDrillCatToggleBtn();
+  updateSmartCount();
+});
+
+function updateDrillCatToggleBtn() {
+  const mainCats = ['vocab', 'phrase', 'idiom', 'concept', 'custom'];
+  const allSelected = mainCats.every(c => state.drill.cats.has(c));
+  const btn = document.getElementById('drill-cat-toggle-btn');
+  btn.innerHTML = allSelected ? hoverPinyin('清除', 'qīngchú') + ' Clear' : hoverPinyin('全選', 'quánxuǎn') + ' All';
+}
+
 document.getElementById('count-minus').addEventListener('click', () => {
   if (state.drill.useAll) {
     state.drill.useAll = false;
@@ -3811,7 +6450,7 @@ document.getElementById('count-plus').addEventListener('click', () => {
     state.drill.useAll = false;
     updateAllButton();
   }
-  state.drill.count = Math.min(NUGGETS.length, state.drill.count + 5);
+  state.drill.count = Math.min(ALL_NUGGETS.length, state.drill.count + 5);
   updateCountDisplay();
   updateSmartCount();
 });
@@ -4217,8 +6856,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set tab labels with hover pinyin
   document.getElementById('tab-zh-browse').innerHTML = hoverPinyin('瀏覽', 'liúlǎn');
   document.getElementById('tab-zh-drill').innerHTML = hoverPinyin('練習', 'liànxí');
-  document.getElementById('tab-zh-lexicon').innerHTML = hoverPinyin('詞庫', 'cíkù');
-  document.getElementById('tab-zh-connect').innerHTML = hoverPinyin('連結', 'liánjié');
+  document.getElementById('tab-zh-forge').innerHTML = hoverPinyin('鍛造', 'duànzào');
 
   // Set category bubble labels with hover pinyin
   document.getElementById('cat-zh-fav').innerHTML = hoverPinyin('收藏', 'shōucáng');
@@ -4226,6 +6864,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('cat-zh-phrase').innerHTML = hoverPinyin('表達', 'biǎodá');
   document.getElementById('cat-zh-idiom').innerHTML = hoverPinyin('成語', 'chéngyǔ');
   document.getElementById('cat-zh-concept').innerHTML = hoverPinyin('概念', 'gàiniàn');
+  document.getElementById('cat-zh-custom').innerHTML = hoverPinyin('自創', 'zìchuàng');
 
   // Set view toggle buttons with hover pinyin
   document.getElementById('view-btn-cards').innerHTML = hoverPinyin('瀏覽', 'liúlǎn');
@@ -4239,7 +6878,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('footer-step').innerHTML = hoverPinyin('一步一步', 'yī bù yī bù');
 
   // Set connect title with hover pinyin
-  document.getElementById('connect-title').innerHTML = hoverPinyin('連結', 'liánjié');
+  // connect-title removed (tab hidden)
 
   // Mode segment buttons are now static HTML — no dynamic label setting needed
 
@@ -4256,6 +6895,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const catToggleBtn = document.getElementById('cat-toggle-btn');
   catToggleBtn.innerHTML = hoverPinyin('全選', 'quánxuǎn') + ' All';
 
+  // Initialize drill category toggle button
+  const drillCatToggleBtn = document.getElementById('drill-cat-toggle-btn');
+  drillCatToggleBtn.innerHTML = hoverPinyin('全選', 'quánxuǎn') + ' All';
+
+  rebuildAllNuggets(); // Load user-created nuggets before first render
   setTabAccent('browse');
   document.querySelector('.theme-gear').style.display = 'none';
   renderBrowse();
@@ -4311,85 +6955,661 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Lexicon form submission
-  document.getElementById('lexicon-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const trad = document.getElementById('lexicon-trad').value.trim();
-    const pinyin = document.getElementById('lexicon-pinyin').value.trim();
-    const english = document.getElementById('lexicon-english').value.trim();
-    const category = document.getElementById('lexicon-category').value;
-    const notes = document.getElementById('lexicon-notes').value.trim();
+  // ========== THE FORGE EVENT HANDLERS ==========
+  // Forge title
+  document.getElementById('forge-title').innerHTML = hoverPinyin('鍛造坊', 'duànzào fāng') + ' The Forge';
 
-    if (!trad || !pinyin || !english) {
-      alert('Please fill in Traditional, Pinyin, and English fields');
-      return;
-    }
-
-    addLexiconWord(trad, pinyin, english, category, notes);
-
-    // Clear form
-    document.getElementById('lexicon-form').reset();
-
-    // Glow effect
-    const btn = document.getElementById('lexicon-add-btn');
-    btn.classList.add('glow');
-    btn.addEventListener('animationend', () => btn.classList.remove('glow'), {once: true});
-  });
-
-  // Lexicon master mode trigger
-  document.getElementById('lexicon-trigger-input').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && e.target.value === '嗯') {
-      document.getElementById('lexicon-master-panel').style.display = 'block';
-      document.getElementById('master-word-input').focus();
-      e.target.value = '';
-    }
-  });
-
-  // Master mode Groq button
-  document.getElementById('master-generate-groq').addEventListener('click', () => {
-    const word = document.getElementById('master-word-input').value.trim();
-    if (!word) {
-      alert('Please enter a word or phrase');
-      return;
-    }
-    generateNugget(word, 'groq');
-  });
-
-  // Master mode Anthropic button
-  document.getElementById('master-generate-anthropic').addEventListener('click', () => {
-    const word = document.getElementById('master-word-input').value.trim();
-    if (!word) {
-      alert('Please enter a word or phrase');
-      return;
-    }
-    generateNugget(word, 'anthropic');
-  });
+  // Forge button labels
+  document.getElementById('forge-btn-label').innerHTML = hoverPinyin('鍛造', 'duànzào') + ' Forge';
+  document.getElementById('forge-opus-btn-label').innerHTML = hoverPinyin('鍛造', 'duànzào') + ' Forge with Sonnet';
 
   // Load stored API keys
   const storedGroqKey = localStorage.getItem('groq-api-key');
-  if (storedGroqKey) document.getElementById('master-groq-key').value = storedGroqKey;
+  if (storedGroqKey) document.getElementById('forge-groq-key').value = storedGroqKey;
   const storedAnthropicKey = localStorage.getItem('anthropic-api-key');
-  if (storedAnthropicKey) document.getElementById('master-anthropic-key').value = storedAnthropicKey;
+  if (storedAnthropicKey) document.getElementById('forge-anthropic-key').value = storedAnthropicKey;
 
   // Save API keys on change
-  document.getElementById('master-groq-key').addEventListener('change', (e) => {
+  document.getElementById('forge-groq-key').addEventListener('change', (e) => {
     localStorage.setItem('groq-api-key', e.target.value);
   });
-  document.getElementById('master-anthropic-key').addEventListener('change', (e) => {
+  document.getElementById('forge-anthropic-key').addEventListener('change', (e) => {
     localStorage.setItem('anthropic-api-key', e.target.value);
   });
 
-  // Initialize lexicon on tab switch
-  const lexiconTab = document.querySelector('[data-tab="lexicon"]');
-  if (lexiconTab) {
-    const origClickHandler = lexiconTab.onclick;
-    lexiconTab.addEventListener('click', () => {
-      setTimeout(initLexicon, 100);
+  // Main forge button (Groq)
+  document.getElementById('forge-btn').addEventListener('click', () => {
+    const word = document.getElementById('forge-word-input').value.trim();
+    if (!word) return;
+    generateNugget(word, 'groq');
+  });
+
+  // Enter key on input
+  document.getElementById('forge-word-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const word = e.target.value.trim();
+      if (!word) return;
+      generateNugget(word, 'groq');
+    }
+  });
+
+  // Opus modal toggle
+  document.getElementById('forge-opus-toggle').addEventListener('click', () => {
+    document.getElementById('forge-opus-modal').style.display = 'flex';
+  });
+  document.getElementById('forge-opus-close').addEventListener('click', () => {
+    document.getElementById('forge-opus-modal').style.display = 'none';
+  });
+
+  // Opus generate button
+  document.getElementById('forge-opus-btn').addEventListener('click', () => {
+    const word = document.getElementById('forge-word-input').value.trim();
+    if (!word) {
+      const status = document.getElementById('forge-status');
+      status.className = 'forge-status error';
+      status.innerHTML = 'Type a word in the main input first.';
+      return;
+    }
+    document.getElementById('forge-opus-modal').style.display = 'none';
+    generateNugget(word, 'anthropic');
+  });
+
+  // Help modal
+  document.getElementById('forge-help-btn').addEventListener('click', () => {
+    document.getElementById('forge-help-modal').style.display = 'flex';
+  });
+  document.getElementById('forge-help-close').addEventListener('click', () => {
+    document.getElementById('forge-help-modal').style.display = 'none';
+  });
+
+  // Close modals on overlay click
+  document.querySelectorAll('.forge-modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.style.display = 'none';
     });
+  });
+
+  // Initialize ALL_NUGGETS with any saved user nuggets
+  rebuildAllNuggets();
+
+  // ========== STAGE TAB EVENT HANDLERS ==========
+  // Stage title
+  document.getElementById('stage-title').innerHTML = hoverPinyin('工坊', 'gōngfáng') + ' Workshop';
+
+  // Load stored Groq API key into stage input (shared with Forge)
+  const storedStageKey = localStorage.getItem('groq-api-key');
+  if (storedStageKey) document.getElementById('stage-api-key').value = storedStageKey;
+
+  // Save stage API key on change (syncs with Forge's Groq key)
+  document.getElementById('stage-api-key').addEventListener('change', (e) => {
+    localStorage.setItem('groq-api-key', e.target.value.trim());
+    // Also update forge field for consistency
+    const forgeField = document.getElementById('forge-groq-key');
+    if (forgeField) forgeField.value = e.target.value.trim();
+  });
+
+  // Set tab label
+  document.getElementById('tab-zh-stage').innerHTML = hoverPinyin('工坊', 'gōngfáng');
+
+  // Vocab picker trigger — opens modal
+  document.getElementById('vocab-picker-trigger').addEventListener('click', () => {
+    openVocabModal();
+  });
+
+  // Close modal via X button
+  document.getElementById('vocab-modal-close').addEventListener('click', () => {
+    closeVocabModal();
+  });
+
+  // Close modal via backdrop click (but not clicks inside the sheet)
+  document.getElementById('vocab-modal-backdrop').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('vocab-modal-backdrop')) {
+      closeVocabModal();
+    }
+  });
+
+  // Vocab picker search
+  document.getElementById('vocab-picker-search').addEventListener('input', (e) => {
+    stageState.vocabSearchQuery = e.target.value;
+    renderVocabPicker();
+  });
+
+  // Category pill clicks — multi-select with Everything toggle
+  document.getElementById('vocab-cat-row').addEventListener('click', (e) => {
+    const pill = e.target.closest('.vocab-cat-pill');
+    if (!pill) return;
+    const cat = pill.dataset.vcat;
+
+    if (cat === 'everything') {
+      // Toggle everything — if active, do nothing (can't deselect all). If inactive, reset to everything.
+      stageState.vocabCatFilters.clear();
+      stageState.vocabCatFilters.add('everything');
+    } else {
+      // Remove 'everything' when selecting specific categories
+      stageState.vocabCatFilters.delete('everything');
+
+      if (stageState.vocabCatFilters.has(cat)) {
+        stageState.vocabCatFilters.delete(cat);
+        // If nothing selected, revert to everything
+        if (stageState.vocabCatFilters.size === 0) {
+          stageState.vocabCatFilters.add('everything');
+        }
+      } else {
+        stageState.vocabCatFilters.add(cat);
+      }
+
+      // If all 5 specific cats are selected, collapse back to 'everything'
+      const allCats = ['vocab', 'phrase', 'idiom', 'concept', 'custom'];
+      if (allCats.every(c => stageState.vocabCatFilters.has(c))) {
+        stageState.vocabCatFilters.clear();
+        stageState.vocabCatFilters.add('everything');
+      }
+    }
+
+    renderVocabPicker();
+  });
+
+  // Vocab picker checkbox clicks (event delegation)
+  document.getElementById('vocab-picker-list').addEventListener('click', (e) => {
+    const item = e.target.closest('.vocab-picker-item');
+    if (!item) return;
+    const id = parseInt(item.dataset.id);
+    if (stageState.selectedVocab.has(id)) {
+      stageState.selectedVocab.delete(id);
+    } else {
+      if (stageState.selectedVocab.size >= 12) return; // Hard cap
+      stageState.selectedVocab.add(id);
+    }
+    renderVocabPicker();
+  });
+
+  // Control bar: Select All — checks all in current filtered view
+  document.getElementById('vocab-select-all-btn').addEventListener('click', () => {
+    const filtered = getStageVocabList();
+    filtered.forEach(n => {
+      if (stageState.selectedVocab.size < 12) {
+        stageState.selectedVocab.add(n.id);
+      }
+    });
+    renderVocabPicker();
+  });
+
+  // Control bar: Clear All
+  document.getElementById('vocab-clear-btn').addEventListener('click', () => {
+    stageState.selectedVocab.clear();
+    renderVocabPicker();
+  });
+
+  // Control bar: Random 5 — smart, prioritizes least-used words
+  document.getElementById('vocab-random-btn').addEventListener('click', () => {
+    stageState.selectedVocab.clear();
+    const pool = getStageVocabList();
+    // Sort by usage count ascending (least used first), then shuffle within same count
+    const usage = loadStageUsage();
+    const sorted = [...pool].sort((a, b) => {
+      const ua = usage[a.id] || 0;
+      const ub = usage[b.id] || 0;
+      if (ua !== ub) return ua - ub;
+      return Math.random() - 0.5; // Shuffle ties
+    });
+    sorted.slice(0, 5).forEach(n => stageState.selectedVocab.add(n.id));
+    renderVocabPicker();
+  });
+
+  // Control bar: Custom — clears selection for manual picking
+  document.getElementById('vocab-custom-btn').addEventListener('click', () => {
+    stageState.selectedVocab.clear();
+    renderVocabPicker();
+    // Focus search to encourage browsing
+    document.getElementById('vocab-picker-search').focus();
+  });
+
+  // Length segmented control
+  document.getElementById('seg-length').addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    stageState.length = btn.dataset.val;
+    document.querySelectorAll('#seg-length button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+
+  // HSK Level segmented control
+  document.getElementById('seg-hsk').addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const level = parseInt(btn.dataset.val);
+    stageState.hskLevel = level;
+    document.querySelectorAll('#seg-hsk button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('hsk-level-hint').textContent = getHskHint(level);
+  });
+
+  // Character set segmented control
+  document.getElementById('seg-charset').addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    stageState.charset = btn.dataset.val;
+    document.querySelectorAll('#seg-charset button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+
+  // Speakers segmented control
+  document.getElementById('seg-speakers').addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    stageState.speakers = parseInt(btn.dataset.val);
+    document.querySelectorAll('#seg-speakers button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+
+  // Group mode toggle
+  document.getElementById('group-btn').addEventListener('click', () => {
+    stageState.groupMode = !stageState.groupMode;
+    const toggle = document.getElementById('group-toggle');
+    const btn = document.getElementById('group-btn');
+    if (stageState.groupMode) {
+      toggle.classList.add('active');
+      btn.classList.add('active');
+    } else {
+      toggle.classList.remove('active');
+      btn.classList.remove('active');
+    }
+  });
+
+  // API key reveal toggle
+  document.getElementById('apikey-reveal-btn').addEventListener('click', () => {
+    const section = document.getElementById('stage-api-section');
+    const btn = document.getElementById('apikey-reveal-btn');
+    if (section.style.display === 'none') {
+      section.style.display = '';
+      btn.classList.add('active');
+      document.getElementById('stage-api-key').focus();
+    } else {
+      section.style.display = 'none';
+      btn.classList.remove('active');
+    }
+  });
+
+  // Show API key section if no key stored yet
+  if (!storedStageKey) {
+    document.getElementById('stage-api-section').style.display = '';
+    document.getElementById('apikey-reveal-btn').classList.add('active');
   }
 
-  // Initialize lexicon on page load
-  initLexicon();
+  // Character roster — render chips and manage modal
+  function renderCharacterRoster() {
+    const chars = loadSavedCharacters();
+    const section = document.getElementById('character-roster-section');
+    const roster = document.getElementById('character-roster');
+
+    if (chars.length === 0) {
+      section.style.display = 'none';
+      return;
+    }
+    section.style.display = '';
+    roster.innerHTML = chars.map(c => {
+      const isSelected = stageState.selectedCharacters.includes(c.id);
+      return '<div class="roster-chip' + (isSelected ? ' selected' : '') + '" data-id="' + c.id + '">' +
+        (c.name || '?') + ' <span class="roster-chip-role">' + (c.role || '') + '</span>' +
+        (c.enriched ? ' *' : '') +
+      '</div>';
+    }).join('');
+  }
+
+  document.getElementById('character-roster').addEventListener('click', (e) => {
+    const chip = e.target.closest('.roster-chip');
+    if (!chip) return;
+    const id = chip.dataset.id;
+    const idx = stageState.selectedCharacters.indexOf(id);
+    if (idx >= 0) {
+      stageState.selectedCharacters.splice(idx, 1);
+    } else {
+      if (stageState.selectedCharacters.length < stageState.speakers) {
+        stageState.selectedCharacters.push(id);
+      }
+    }
+    renderCharacterRoster();
+  });
+
+  document.getElementById('roster-manage-btn').addEventListener('click', () => {
+    openCharCreator();
+  });
+
+  // Character Creator Modal
+  function openCharCreator() {
+    document.getElementById('char-creator-backdrop').classList.add('open');
+    renderSavedCharList();
+    document.getElementById('char-name').focus();
+  }
+
+  function closeCharCreator() {
+    document.getElementById('char-creator-backdrop').classList.remove('open');
+    clearCharForm();
+  }
+
+  function clearCharForm() {
+    document.getElementById('char-name').value = '';
+    document.getElementById('char-role').value = '';
+    document.getElementById('char-want').value = '';
+    document.getElementById('char-fear').value = '';
+    document.getElementById('char-quirk').value = '';
+    document.getElementById('char-style').value = 'blunt';
+    document.getElementById('char-notes').value = '';
+    document.getElementById('char-enrich-status').textContent = '';
+  }
+
+  function getCharFormData() {
+    return {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+      name: document.getElementById('char-name').value.trim(),
+      role: document.getElementById('char-role').value.trim(),
+      want: document.getElementById('char-want').value.trim(),
+      fear: document.getElementById('char-fear').value.trim(),
+      quirk: document.getElementById('char-quirk').value.trim(),
+      commStyle: document.getElementById('char-style').value,
+      notes: document.getElementById('char-notes').value.trim(),
+      enriched: null,
+      createdAt: Date.now(),
+    };
+  }
+
+  function renderSavedCharList() {
+    const chars = loadSavedCharacters();
+    const list = document.getElementById('char-saved-list');
+    if (chars.length === 0) {
+      list.innerHTML = '<div style="font-size:0.75rem;color:var(--ink-ghost);text-align:center;padding:0.5rem;">No saved characters yet</div>';
+      return;
+    }
+    list.innerHTML = chars.map(c =>
+      '<div class="char-saved-item" data-id="' + c.id + '">' +
+        '<div class="char-saved-info">' +
+          '<span class="char-saved-name">' + (c.name || '?') + '</span>' +
+          '<span class="char-saved-role">' + (c.role || '') + '</span>' +
+          (c.enriched ? '<span class="char-saved-enriched">enriched</span>' : '') +
+        '</div>' +
+        '<div class="char-saved-actions">' +
+          '<button class="char-delete-btn" data-id="' + c.id + '" title="Delete">x</button>' +
+        '</div>' +
+      '</div>'
+    ).join('');
+  }
+
+  // Save character
+  document.getElementById('char-save-btn').addEventListener('click', () => {
+    const data = getCharFormData();
+    if (!data.name) {
+      document.getElementById('char-enrich-status').textContent = 'Name is required.';
+      return;
+    }
+    const chars = loadSavedCharacters();
+    chars.push(data);
+    saveSavedCharacters(chars);
+    clearCharForm();
+    renderSavedCharList();
+    renderCharacterRoster();
+    document.getElementById('char-enrich-status').textContent = 'Saved!';
+    setTimeout(() => document.getElementById('char-enrich-status').textContent = '', 1500);
+  });
+
+  // Enrich character with AI
+  document.getElementById('char-enrich-btn').addEventListener('click', () => {
+    const data = getCharFormData();
+    if (!data.name) {
+      document.getElementById('char-enrich-status').textContent = 'Name is required.';
+      return;
+    }
+
+    let apiKey = document.getElementById('stage-api-key').value.trim();
+    if (!apiKey) apiKey = localStorage.getItem('groq-api-key') || '';
+    if (!apiKey) {
+      document.getElementById('char-enrich-status').textContent = 'Enter your Groq API key first.';
+      return;
+    }
+
+    const enrichBtn = document.getElementById('char-enrich-btn');
+    enrichBtn.disabled = true;
+    document.getElementById('char-enrich-status').textContent = 'Enriching character...';
+
+    const enrichPrompt = buildCharacterEnrichmentPrompt(data);
+
+    fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + apiKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          { role: 'system', content: enrichPrompt },
+          { role: 'user', content: 'Enrich this character. Return ONLY valid JSON.' }
+        ],
+        max_tokens: 800,
+        temperature: 0.9
+      })
+    })
+    .then(res => {
+      if (!res.ok) return res.json().then(err => { throw new Error(err.error?.message || 'API error'); });
+      return res.json();
+    })
+    .then(resp => {
+      const content = resp.choices[0].message.content;
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) throw new Error('No JSON in response');
+      const enriched = JSON.parse(jsonMatch[0]);
+
+      data.enriched = enriched;
+      const chars = loadSavedCharacters();
+      chars.push(data);
+      saveSavedCharacters(chars);
+      clearCharForm();
+      renderSavedCharList();
+      renderCharacterRoster();
+      document.getElementById('char-enrich-status').textContent = 'Enriched and saved!';
+      setTimeout(() => document.getElementById('char-enrich-status').textContent = '', 2000);
+    })
+    .catch(err => {
+      document.getElementById('char-enrich-status').textContent = 'Error: ' + err.message;
+      // Save without enrichment as fallback
+      const chars = loadSavedCharacters();
+      chars.push(data);
+      saveSavedCharacters(chars);
+      clearCharForm();
+      renderSavedCharList();
+      renderCharacterRoster();
+    })
+    .finally(() => {
+      enrichBtn.disabled = false;
+    });
+  });
+
+  // Delete saved character
+  document.getElementById('char-saved-list').addEventListener('click', (e) => {
+    const delBtn = e.target.closest('.char-delete-btn');
+    if (!delBtn) return;
+    const id = delBtn.dataset.id;
+    let chars = loadSavedCharacters();
+    chars = chars.filter(c => c.id !== id);
+    saveSavedCharacters(chars);
+    stageState.selectedCharacters = stageState.selectedCharacters.filter(cid => cid !== id);
+    renderSavedCharList();
+    renderCharacterRoster();
+  });
+
+  document.getElementById('char-creator-close').addEventListener('click', closeCharCreator);
+  document.getElementById('char-creator-backdrop').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('char-creator-backdrop')) closeCharCreator();
+  });
+
+  // Initial render of roster
+  renderCharacterRoster();
+
+  // Topic preset — when selected, clear custom field
+  document.getElementById('stage-topic-preset').addEventListener('change', (e) => {
+    stageState.topicPreset = e.target.value;
+    if (e.target.value) {
+      document.getElementById('stage-topic-custom').value = '';
+      stageState.topicCustom = '';
+    }
+  });
+
+  // Topic custom — when typed, reset preset
+  document.getElementById('stage-topic-custom').addEventListener('input', (e) => {
+    stageState.topicCustom = e.target.value;
+    if (e.target.value.trim()) {
+      document.getElementById('stage-topic-preset').value = '';
+      stageState.topicPreset = '';
+    }
+  });
+
+  // Spicy button — password-gated toggle
+  const SPICY_PW = '朋友';
+  const SPICY_AUTH_KEY = 'nugget-spicy-auth';
+
+  function isSpicyAuthed() {
+    return localStorage.getItem(SPICY_AUTH_KEY) === 'true';
+  }
+
+  function updateSpicyUI() {
+    const toggle = document.getElementById('spicy-toggle');
+    const btn = document.getElementById('spicy-btn');
+    if (stageState.spicyMode) {
+      toggle.classList.add('active');
+      btn.classList.add('active');
+    } else {
+      toggle.classList.remove('active');
+      btn.classList.remove('active');
+    }
+  }
+
+  // Inject Moria Gate SVG
+  document.getElementById('moria-gate-svg').innerHTML = `<svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="40%" r="50%">
+        <stop offset="0%" stop-color="rgba(140,180,230,0.06)"/>
+        <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+      </radialGradient>
+      <filter id="svgGlow">
+        <feGaussianBlur stdDeviation="1.5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <rect width="200" height="230" fill="url(#glow)"/>
+    <g stroke="rgba(140,180,230,0.55)" fill="none" stroke-width="1.2" filter="url(#svgGlow)">
+      <!-- Pillars -->
+      <rect x="28" y="80" width="12" height="130" rx="3"/>
+      <rect x="160" y="80" width="12" height="130" rx="3"/>
+      <!-- Pillar bases -->
+      <rect x="24" y="200" width="20" height="10" rx="2"/>
+      <rect x="156" y="200" width="20" height="10" rx="2"/>
+      <!-- Pillar caps -->
+      <rect x="26" y="75" width="16" height="8" rx="2"/>
+      <rect x="158" y="75" width="16" height="8" rx="2"/>
+      <!-- Main arch -->
+      <path d="M 34 80 A 66 66 0 0 1 166 80" stroke-width="1.8"/>
+      <!-- Inner arch line -->
+      <path d="M 37 80 A 63 63 0 0 1 163 80" stroke-width="0.6" stroke="rgba(140,180,230,0.25)"/>
+      <!-- Crown / Star at apex -->
+      <polygon points="100,18 103,26 111,26 105,31 107,39 100,35 93,39 95,31 89,26 97,26" fill="rgba(140,180,230,0.4)" stroke="rgba(140,180,230,0.7)" stroke-width="0.8"/>
+      <!-- Small stars flanking crown -->
+      <circle cx="75" cy="30" r="1.5" fill="rgba(140,180,230,0.5)"/>
+      <circle cx="125" cy="30" r="1.5" fill="rgba(140,180,230,0.5)"/>
+      <circle cx="65" cy="45" r="1" fill="rgba(140,180,230,0.3)"/>
+      <circle cx="135" cy="45" r="1" fill="rgba(140,180,230,0.3)"/>
+      <circle cx="55" cy="58" r="1" fill="rgba(140,180,230,0.25)"/>
+      <circle cx="145" cy="58" r="1" fill="rgba(140,180,230,0.25)"/>
+      <!-- Arch inscription (decorative curves suggesting Tengwar) -->
+      <path d="M 50 52 q5,-8 12,-5 q5,2 8,-3 q4,-6 10,-2 q6,3 10,0 q5,-4 10,1 q4,4 10,2 q7,-3 12,4" stroke-width="0.7" stroke="rgba(140,180,230,0.3)"/>
+      <path d="M 46 60 q6,-6 13,-3 q5,3 9,-2 q5,-5 11,-1 q6,4 11,0 q4,-5 10,0 q5,5 11,1 q6,-4 13,3" stroke-width="0.7" stroke="rgba(140,180,230,0.3)"/>
+      <!-- Left tree / vine -->
+      <path d="M 60 195 C 60 170, 48 160, 50 140 C 52 125, 58 120, 55 105 C 53 95, 48 90, 50 82" stroke-width="1.2"/>
+      <path d="M 50 140 C 42 135, 38 128, 42 120" stroke-width="0.8"/>
+      <path d="M 55 120 C 48 118, 44 110, 48 105" stroke-width="0.8"/>
+      <path d="M 55 155 C 47 150, 44 142, 48 136" stroke-width="0.8"/>
+      <!-- Left leaves -->
+      <ellipse cx="40" cy="118" rx="5" ry="2.5" transform="rotate(-30 40 118)" fill="rgba(140,180,230,0.1)" stroke-width="0.6"/>
+      <ellipse cx="46" cy="103" rx="4.5" ry="2" transform="rotate(-20 46 103)" fill="rgba(140,180,230,0.1)" stroke-width="0.6"/>
+      <ellipse cx="45" cy="134" rx="5" ry="2.5" transform="rotate(-25 45 134)" fill="rgba(140,180,230,0.1)" stroke-width="0.6"/>
+      <!-- Right tree / vine (mirrored) -->
+      <path d="M 140 195 C 140 170, 152 160, 150 140 C 148 125, 142 120, 145 105 C 147 95, 152 90, 150 82" stroke-width="1.2"/>
+      <path d="M 150 140 C 158 135, 162 128, 158 120" stroke-width="0.8"/>
+      <path d="M 145 120 C 152 118, 156 110, 152 105" stroke-width="0.8"/>
+      <path d="M 145 155 C 153 150, 156 142, 152 136" stroke-width="0.8"/>
+      <!-- Right leaves -->
+      <ellipse cx="160" cy="118" rx="5" ry="2.5" transform="rotate(30 160 118)" fill="rgba(140,180,230,0.1)" stroke-width="0.6"/>
+      <ellipse cx="154" cy="103" rx="4.5" ry="2" transform="rotate(20 154 103)" fill="rgba(140,180,230,0.1)" stroke-width="0.6"/>
+      <ellipse cx="155" cy="134" rx="5" ry="2.5" transform="rotate(25 155 134)" fill="rgba(140,180,230,0.1)" stroke-width="0.6"/>
+      <!-- Central star emblem -->
+      <polygon points="100,145 102,151 108,151 103,155 105,161 100,157 95,161 97,155 92,151 98,151" fill="rgba(140,180,230,0.2)" stroke="rgba(140,180,230,0.45)" stroke-width="0.6"/>
+      <!-- Door line -->
+      <line x1="100" y1="85" x2="100" y2="210" stroke-width="0.4" stroke="rgba(140,180,230,0.12)"/>
+    </g>
+  </svg>`;
+
+  document.getElementById('spicy-btn').addEventListener('click', () => {
+    if (stageState.spicyMode) {
+      // Toggle OFF — no password needed
+      stageState.spicyMode = false;
+      updateSpicyUI();
+      return;
+    }
+    if (isSpicyAuthed()) {
+      // Already authenticated this session/device
+      stageState.spicyMode = true;
+      updateSpicyUI();
+      return;
+    }
+    // Show password modal
+    const backdrop = document.getElementById('spicy-pw-backdrop');
+    const input = document.getElementById('spicy-pw-input');
+    backdrop.classList.add('show');
+    input.value = '';
+    input.classList.remove('error');
+    setTimeout(() => input.focus(), 100);
+  });
+
+  document.getElementById('spicy-pw-confirm').addEventListener('click', () => {
+    const input = document.getElementById('spicy-pw-input');
+    if (input.value === SPICY_PW) {
+      localStorage.setItem(SPICY_AUTH_KEY, 'true');
+      document.getElementById('spicy-pw-backdrop').classList.remove('show');
+      stageState.spicyMode = true;
+      updateSpicyUI();
+    } else {
+      input.classList.add('error');
+      input.value = '';
+      input.placeholder = 'the door remains shut';
+      setTimeout(() => {
+        input.classList.remove('error');
+        input.placeholder = '...';
+      }, 600);
+    }
+  });
+
+  document.getElementById('spicy-pw-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('spicy-pw-confirm').click();
+    if (e.key === 'Escape') document.getElementById('spicy-pw-cancel').click();
+  });
+
+  document.getElementById('spicy-pw-cancel').addEventListener('click', () => {
+    document.getElementById('spicy-pw-backdrop').classList.remove('show');
+  });
+
+  document.getElementById('spicy-pw-backdrop').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('spicy-pw-backdrop')) {
+      document.getElementById('spicy-pw-backdrop').classList.remove('show');
+    }
+  });
+
+  // Generate button
+  document.getElementById('stage-generate-btn').addEventListener('click', () => {
+    generateDialogue();
+  });
+
+  // Regenerate button
+  document.getElementById('stage-regenerate-btn').addEventListener('click', () => {
+    generateDialogue();
+  });
 
   // Glow on interactive taps
   document.addEventListener('click', (e) => {
